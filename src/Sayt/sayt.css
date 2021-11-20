@@ -1,6 +1,8 @@
-*{
+/**/
+* {
     box-sizing: border-box;
 }
+
 .body {
     background-color: #eee;
     padding-bottom: 200px;
@@ -9,7 +11,8 @@
 .header {
     text-align: center;
 }
-.header > h1 {
+
+.header>h1 {
     padding: 2rem;
 }
 
@@ -23,20 +26,23 @@
     justify-content: center;
     gap: 2rem;
 }
-.links > a {
+
+.links>a {
     text-decoration: none;
     color: black;
 }
+
 .link {
     min-width: 300px;
     max-width: 350px;
     padding: 1.875rem;
     box-shadow: 0 10px 20px 10px rgba(0, 0, 0, 0.05),
-    0 6px 6px rgba(0, 0, 0, 0.01);
+        0 6px 6px rgba(0, 0, 0, 0.01);
     position: relative;
     overflow: hidden;
     background-color: rgba(255, 255, 255, 0.5);
 }
+
 .link::after {
     content: '';
     position: absolute;
@@ -49,30 +55,38 @@
 .cyan::after {
     background-color: hsl(180, 62%, 55%);
 }
+
 .red::after {
     background-color: hsl(0, 78%, 62%);
 }
+
 .orange::after {
     background-color: hsl(34, 97%, 64%);
 }
+
 .blue::after {
     background-color: hsl(212, 86%, 64%);
 }
 
-.image >img {
+.image>img {
     width: 80px;
     height: 80px;
     display: block;
     margin-left: auto;
-}  
- .cyan,.orange {
+}
+
+.cyan,
+.orange {
     transform: translateY(50%);
-}  
-@media (max-width:1400px){
+}
+
+@media (max-width:1400px) {
+
     .cyan,
     .orange {
         transform: translateY(50%);
     }
+
     .link {
         width: 250px !important;
     }
@@ -82,13 +96,16 @@
     .link {
         width: 200px !important;
     }
-    
+
 }
+
 @media (max-width: 767px) {
     .body {
         font-size: 92%;
     }
-    .cyan,.orange {
+
+    .cyan,
+    .orange {
         transform: translateY(0);
     }
 }
