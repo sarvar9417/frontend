@@ -50,12 +50,12 @@ export const AuthPage = () => {
         <section>
             {/*  */}
             <div className="container">
-                <div className="main-wrapper login-body">
+                <div className="main-wrapper login-body" style={{ margin: "0 auto" }}>
                     <div className="login-wrapper">
                         <div className="container">
-                            <div className="loginbox">
+                            <div className=" loginbox ">
                                 <div className="login-left">
-                                    <img className="img-fluid w-100" src={Reseption} alt="Logo" />
+                                    <img className="w-100" src={Reseption} alt="Logo" />
                                 </div>
                                 <div className="login-right">
                                     <div className="login-right-wrap">
@@ -73,6 +73,7 @@ export const AuthPage = () => {
                                                 name="login"
                                                 type="text"
                                                 id="login"
+                                                placeholder="login"
                                             />
                                         </div>
                                         <div className="form-group mb-3">
@@ -81,6 +82,7 @@ export const AuthPage = () => {
                                                 name="password"
                                                 type="password"
                                                 id="password"
+                                                placeholder="parol"
                                             />
                                         </div>
                                         <div className="form-group text-end">
@@ -114,7 +116,7 @@ export const AuthPage = () => {
             </div>
 
             {/*  */}
-{/* 
+            {/* 
             <div className="container py-5 h-100">
                 <div className="row d-flex justify-content-center align-items-center h-100">
                     <div className="col col-xl-10">
