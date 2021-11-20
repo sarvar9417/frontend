@@ -6,6 +6,9 @@ import './sayt.css'
 import AOS from 'aos'
 import 'aos/dist/aos'
 import ReseptionIcon from './icons/resption.png'
+import Director from './icons/director.png'
+import Cashier from './icons/cashier.png'
+import Doctor from './icons/doctor.png'
 
 export const Sayt = () => {
 
@@ -37,8 +40,8 @@ export const Sayt = () => {
                             <p></p>
                         </div>
                         <div className="row">
-                            <div className="col-6" style={{marginTop:"31px"}}>
-                                <button className="btn w-100 text-white" style={{ backgroundColor:"hsl(180, 62%, 55%)", }}>Kirish</button>
+                            <div className="col-6" style={{ marginTop: "31px" }}>
+                                <button className="btn w-100 text-white" style={{ backgroundColor: "hsl(180, 62%, 55%)", }}>Kirish</button>
                             </div>
                             <div className="col-6">
                                 <div className="image">
@@ -55,9 +58,17 @@ export const Sayt = () => {
                             <h2>DIREKTOR</h2>
                             <p></p>
                         </div>
-                        <div className="image">
-                            <img src="https://image.flaticon.com/icons/png/512/606/606587.png" alt="rasm" />
+                        <div className="row">
+                            <div className="col-6" style={{ marginTop: "31px" }}>
+                                <button className="btn w-100 text-white" style={{ backgroundColor: "#EA5353", }}>Kirish</button>
+                            </div>
+                            <div className="col-6">
+                                <div className="image">
+                                    <img src={Director} alt="rasm" />
+                                </div>
+                            </div>
                         </div>
+
                     </article>
                 </Link>
                 <Link data-aos="fade-up">
@@ -66,9 +77,17 @@ export const Sayt = () => {
                             <h2>KASSA</h2>
                             <p></p>
                         </div>
-                        <div className="image">
-                            <img src="https://cdn.icon-icons.com/icons2/1846/PNG/512/cashier2_116164.png" alt="rasm" />
+                        <div className="row">
+                            <div className="col-6" style={{ marginTop: "31px" }}>
+                                <button className="btn w-100 text-white" style={{ backgroundColor: "#FCAE49", }}>Kirish</button>
+                            </div>
+                            <div className="col-6">
+                                <div className="image">
+                                    <img src={Cashier} alt="rasm" />
+                                </div>
+                            </div>
                         </div>
+
                     </article>
                 </Link>
                 <Link data-aos="fade-left">
@@ -77,8 +96,15 @@ export const Sayt = () => {
                             <h2>DOCTOR</h2>
                             <p></p>
                         </div>
-                        <div className="image">
-                            <img src="https://gclg.in.ua/wp-content/uploads/2020/04/493-4938154_transparent-drill-team-clipart-blue-doctor-icon-png.png" alt="rasm" />
+                        <div className="row">
+                            <div className="col-6" style={{ marginTop: "31px" }}>
+                                <button className="btn w-100 text-white" style={{ backgroundColor: "#539EF1", }}>Kirish</button>
+                            </div>
+                            <div className="col-6">
+                                <div className="image">
+                                    <img src={Doctor} alt="rasm" />
+                                </div>
+                            </div>
                         </div>
                     </article>
                 </Link>
