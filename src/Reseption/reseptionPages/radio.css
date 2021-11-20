@@ -1,0 +1,23 @@
+.wrapper {
+  display: flex;
+}
+.input[type="radio"] {
+  display: none;
+}
+.label {
+  position: relative;
+  color: #0d6efd;
+  border: 2px solid #0d6efd;
+  padding: 5px 15px;
+  margin: 3px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+.clabel {
+  color: #fff;
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+}
