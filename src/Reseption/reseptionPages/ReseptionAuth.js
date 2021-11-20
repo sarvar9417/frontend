@@ -3,6 +3,7 @@ import { useHttp } from '../hooks/http.hook'
 import 'react-toastify/dist/ReactToastify.css'
 import { AuthContext } from '../context/AuthContext'
 import { toast } from 'react-toastify'
+import Reseption from './icons/reseption.png'
 
 toast.configure()
 export const AuthPage = () => {
@@ -46,45 +47,64 @@ export const AuthPage = () => {
     }
 
     return (
-        <section style={{ backgroundColor: "rgba(0, 234, 255, 0.87)" }}>
+        <section>
             {/*  */}
             <div className="container">
-                <div class="main-wrapper login-body">
-                    <div class="login-wrapper">
-                        <div class="container">
-                            <div class="loginbox">
-                                <div class="login-left">
-                                    <img class="img-fluid" src="assets/img/logo-white.png" alt="Logo" />
+                <div className="main-wrapper login-body">
+                    <div className="login-wrapper">
+                        <div className="container">
+                            <div className="loginbox">
+                                <div className="login-left">
+                                    <img className="img-fluid w-100" src={Reseption} alt="Logo" />
                                 </div>
-                                <div class="login-right">
-                                    <div class="login-right-wrap">
-                                        <h1>Login</h1>
-                                        <p class="account-subtitle">Access to our dashboard</p>
-
-                                        <form action="https://dreamguys.co.in/demo/doccure/admin/index.html">
-                                            <div class="form-group">
-                                                <input class="form-control" type="text" placeholder="Email" />
-                                            </div>
-                                            <div class="form-group">
-                                                <input class="form-control" type="text" placeholder="Password" />
-                                            </div>
-                                            <div class="form-group">
-                                                <button class="btn btn-primary btn-block" type="submit">Login</button>
-                                            </div>
-                                        </form>
-                                        <div class="text-center forgotpass"><a href="forgot-password.html">Forgot Password?</a></div>
-                                        <div class="login-or">
-                                            <span class="or-line"></span>
-                                            <span class="span-or">or</span>
+                                <div className="login-right">
+                                    <div className="login-right-wrap">
+                                        <h1>Qabul bo'limi</h1>
+                                        <div className="login-or">
+                                            <span className="or-line"></span>
+                                            <span className="span-or"></span>
                                         </div>
+                                        {/* <p className="account-subtitle">Mijozlarni ro'yxatga olish</p> */}
 
-                                        <div class="social-login">
-                                            <span>Login with</span>
-                                            <a href="#" class="facebook"><i class="fa fa-facebook"></i></a><a href="#" class="google"><i class="fa fa-google"></i></a>
+                                        <div className="form-group mb-3">
+                                            <input
+                                                className="form-control"
+                                                onChange={changeHandlar}
+                                                name="login"
+                                                type="text"
+                                                id="login"
+                                            />
                                         </div>
-
-
-                                        <div class="text-center dont-have">Don’t have an account? <a href="register.html">Register</a></div>
+                                        <div className="form-group mb-3">
+                                            <input className="form-control"
+                                                onChange={changeHandlar}
+                                                name="password"
+                                                type="password"
+                                                id="password"
+                                            />
+                                        </div>
+                                        <div className="form-group text-end">
+                                            <button
+                                                onClick={loginHandler}
+                                                className="btn btn-primary btn-block"
+                                                type="button"
+                                                disabled={loading}
+                                            >
+                                                Kirish
+                                            </button>
+                                            {/* <button
+                                                onClick={registerHandler}
+                                                className="btn btn-primary btn-block"
+                                                type="button"
+                                                disabled={loading}
+                                            >
+                                                Regitratsiya
+                                            </button> */}
+                                        </div>
+                                        <div className="login-or">
+                                            <span className="or-line"></span>
+                                            <span className="span-or"></span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -94,7 +114,7 @@ export const AuthPage = () => {
             </div>
 
             {/*  */}
-
+{/* 
             <div className="container py-5 h-100">
                 <div className="row d-flex justify-content-center align-items-center h-100">
                     <div className="col col-xl-10">
@@ -163,7 +183,7 @@ export const AuthPage = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </section>
     )
 }
