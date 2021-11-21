@@ -161,53 +161,54 @@ export const NewClient = () => {
         </div>
       </div>
       <div className="row">
-        <div className="col-md-6">
-          <label className="labels"></label>
+        <div className="col-md-6 input_box" data-aos="fade-right">
           <input
             onChange={changeHandlar}
             name="lastname"
             type="text"
-            className="form-control"
-            placeholder="Familiyasini kiriting"
+            className="form-control inp"
+            placeholder=""
           />
+          <label className="labels">Familiya</label>
         </div>
-        <div className="col-md-6">
-          <label className="labels"></label>
+        <div className="col-md-6 input_box" data-aos="fade-left">
           <input
             onChange={changeHandlar}
             name="firstname"
             type="text"
-            className="form-control"
-            placeholder="Ismini kiriting"
+            className="form-control inp"
+            placeholder=""
           />
+          <label className="labels">Ism</label>
         </div>
       </div>
-      <div className="row">
-        <div className="col-md-6">
-          <label className="labels"></label>
+      <div className="row" style={{padding:"15px 0"}}>
+        <div className="col-md-6 input_box" data-aos="fade-right">
           <input
             onChange={changeHandlar}
             name="fathername"
             type="text"
-            className="form-control"
-            placeholder="Otasining ismini kiriting"
+            className="form-control inp"
+            placeholder=""
           />
+          <label className="labels">Otasining ismi</label>
         </div>
-        <div className="col-md-6">
-          <label className="labels"></label>
+        <div className="col-md-6 input_box" data-aos="fade-left">
           <input
             onChange={changeDate}
             type="date"
             name="born"
-            className="form-control"
-            placeholder="Telefon raqamini kiriting"
+            className="form-control inp"
+            placeholder=""
+            style={{color:"#999"}}
           />
+          <label className="labels">Tug'ilgan sanasi</label>
         </div>
       </div>
       <div className="row">
-        <div className="col-md-6">
+        <div className="col-md-6" data-aos="zoom-out">
           <div className="form-group">
-            <label className="text-muted mandatory d-block">Jinsi</label>
+            {/* <label className="text-muted mandatory d-block">Jinsi</label> */}
             <div className="btn-group" data-toggle="buttons">
             <div className="wrapper">
                 <input
@@ -244,23 +245,23 @@ export const NewClient = () => {
             </div>
           </div>
         </div>
-        <div className="col-md-6">
-          <label className="labels"></label>
+        <div className="col-md-6 input_box" data-aos="fade-left">
           <input
             onChange={changeHandlar}
             type="number"
             name="phone"
             maxLength="12"
             minLength="12"
-            className="form-control"
-            placeholder="Telefon raqamini kiriting"
+            className="form-control inp"
+            placeholder=""
           />
+          <label className="labels">Telefon raqam</label>
         </div>
       </div>
       <hr className="form-control" />
 
       <div className="row">
-        <div className="col-md-12">
+        <div className="col-md-12" data-aos="zoom-out">
           <label className="labels">qayta tanlaganda narx o'chib ketadi</label>
           <Select
             onChange={(event) => changeSections(event)}
@@ -336,7 +337,7 @@ export const NewClient = () => {
                 </div>
 
             </div> */}
-      <div className="mt-5 text-center">
+      <div className="mt-3 text-center">
         <button onClick={checkData} className="btn btn-primary profile-button">
           Saqlash
         </button>
