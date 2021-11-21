@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState, Component } from 'react'
 import { Loader } from '../components/Loader'
 import { useHttp } from '../hooks/http.hook'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPenAlt, faSearch, faSort, faFileExcel } from '@fortawesome/free-solid-svg-icons'
+import { faPenAlt, faSearch, faSort, faPrint, faTimesCircle, faCheck } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import DatePicker from "react-datepicker"
@@ -204,7 +204,7 @@ export const ClientsOnPages = () => {
                 </div>
             </div>
             <div className="overflow-auto" style={{ height: "70vh", minWidth: "1000px" }}>
-                <table id="reseptionReport" className="table table-striped table-hover"  >
+                <table id="reseptionReport" className="table-hover"  >
                     <thead className="d-none">
                         <tr>
                             <th className="no" scope="" >№ <FontAwesomeIcon icon={faSort} /> </th>
@@ -234,7 +234,9 @@ export const ClientsOnPages = () => {
                                             <td className="phone">+{client.phone}</td>
                                             <td className="section"> <Link to={`/reseption/clienthistory/${section._id}`} > {section.name} </Link></td>
                                             <td className="edit"> <Link to={`/reseption/edit/${client._id}`} > <FontAwesomeIcon icon={faPenAlt} /> </Link>  </td>
-                                            <td className={section.payment === "kutilmoqda prices" ? "text-warning prices" : (section.payment === "to'langan" ? "text-success" : "text-danger")} >{section.payment}</td>
+                                            <td className={section.payment === "to'langan" ? "text-success prices" : "text-danger prices "} >
+                                                {section.payment === "to'langan" ? <FontAwesomeIcon icon={faCheck} /> : <FontAwesomeIcon icon={faTimesCircle} />}
+                                            </td>
                                             <td className="position" >{
                                                 section.position === "kutilmoqda" ?
                                                     <><Link onClick={() => positionUpdate(section._id, "kelgan")} className="btn btn-success mb-1" to={`/reseption/reciept/${client._id}`} >Qabul qilish</Link>

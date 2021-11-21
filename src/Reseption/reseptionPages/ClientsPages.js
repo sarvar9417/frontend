@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState, Component } from 'react'
 import { Loader } from '../components/Loader'
 import { useHttp } from '../hooks/http.hook'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPenAlt, faSearch, faSort, faPrint } from '@fortawesome/free-solid-svg-icons'
+import { faPenAlt, faSearch, faSort, faPrint, faClock, faCheck, faSyncAlt } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import DatePicker from "react-datepicker"
@@ -23,6 +23,7 @@ export const ClientsPages = () => {
     ]
 
     let k = 0
+    let kk = 0
     const [startDate, setStartDate] = useState(new Date())
     const [endDate, setEndDate] = useState(new Date())
     const [born, setBorn] = useState('')
@@ -118,21 +119,40 @@ export const ClientsPages = () => {
 
     const setSortDate = (section) => {
 
-        let year = startDate.getFullYear().toString()
-        let month = startDate.getMonth().toString() < 10 ? "0" + startDate.getMonth().toString() : startDate.getMonth().toString()
-        let day = startDate.getDate().toString() < 10 ? "0" + startDate.getDate().toString() : startDate.getDate().toString()
-        let date1 = parseInt(year + month + day)
+        if (section.bron === 'offline') {
+            let year = startDate.getFullYear().toString()
+            let month = startDate.getMonth().toString() < 10 ? "0" + startDate.getMonth().toString() : startDate.getMonth().toString()
+            let day = startDate.getDate().toString() < 10 ? "0" + startDate.getDate().toString() : startDate.getDate().toString()
+            let date1 = parseInt(year + month + day)
 
-        year = endDate.getFullYear().toString()
-        month = endDate.getMonth().toString() < 10 ? "0" + endDate.getMonth().toString() : endDate.getMonth().toString()
-        day = endDate.getDate().toString() < 10 ? "0" + endDate.getDate().toString() : endDate.getDate().toString()
-        let date3 = parseInt(year + month + day)
+            year = endDate.getFullYear().toString()
+            month = endDate.getMonth().toString() < 10 ? "0" + endDate.getMonth().toString() : endDate.getMonth().toString()
+            day = endDate.getDate().toString() < 10 ? "0" + endDate.getDate().toString() : endDate.getDate().toString()
+            let date3 = parseInt(year + month + day)
 
-        year = new mongoose.Types.ObjectId(section._id).getTimestamp().getFullYear().toString()
-        month = new mongoose.Types.ObjectId(section._id).getTimestamp().getMonth().toString() < 10 ? "0" + new mongoose.Types.ObjectId(section._id).getTimestamp().getMonth().toString() : new mongoose.Types.ObjectId(section._id).getTimestamp().getMonth().toString()
-        day = new mongoose.Types.ObjectId(section._id).getTimestamp().getDate().toString() < 10 ? "0" + new mongoose.Types.ObjectId(section._id).getTimestamp().getDate().toString() : new mongoose.Types.ObjectId(section._id).getTimestamp().getDate().toString()
-        let date2 = parseInt(year + month + day)
-        return (date1 <= date2 && date2 <= date3)
+            year = new mongoose.Types.ObjectId(section._id).getTimestamp().getFullYear().toString()
+            month = new mongoose.Types.ObjectId(section._id).getTimestamp().getMonth().toString() < 10 ? "0" + new mongoose.Types.ObjectId(section._id).getTimestamp().getMonth().toString() : new mongoose.Types.ObjectId(section._id).getTimestamp().getMonth().toString()
+            day = new mongoose.Types.ObjectId(section._id).getTimestamp().getDate().toString() < 10 ? "0" + new mongoose.Types.ObjectId(section._id).getTimestamp().getDate().toString() : new mongoose.Types.ObjectId(section._id).getTimestamp().getDate().toString()
+            let date2 = parseInt(year + month + day)
+            return (date1 <= date2 && date2 <= date3)
+        } else {
+            let year = startDate.getFullYear().toString()
+            let month = startDate.getMonth().toString() < 10 ? "0" + startDate.getMonth().toString() : startDate.getMonth().toString()
+            let day = startDate.getDate().toString() < 10 ? "0" + startDate.getDate().toString() : startDate.getDate().toString()
+            let date1 = parseInt(year + month + day)
+
+            year = endDate.getFullYear().toString()
+            month = endDate.getMonth().toString() < 10 ? "0" + endDate.getMonth().toString() : endDate.getMonth().toString()
+            day = endDate.getDate().toString() < 10 ? "0" + endDate.getDate().toString() : endDate.getDate().toString()
+            let date3 = parseInt(year + month + day)
+
+            year = new Date(section.bronDay).getFullYear().toString()
+            month = new Date(section.bronDay).getMonth().toString() < 10 ? "0" + new Date(section.bronDay).getMonth().toString() : new Date(section.bronDay).getMonth().toString()
+            day = new Date(section.bronDay).getDate().toString() < 10 ? "0" + new Date(section.bronDay).getDate().toString() : new Date(section.bronDay).getDate().toString()
+            let date2 = parseInt(year + month + day)
+            return (date1 <= date2 && date2 <= date3)
+        }
+
     }
 
     if (loading) {
@@ -165,7 +185,9 @@ export const ClientsPages = () => {
                 <div className="col-lg-2 col-md-6 col-sm-6 ">
                     <Select onChange={(event) => sortOnOff(event)} defaultValue={options[0]} options={options} />
                 </div>
-                <div className="col-lg-12 text-end">
+            </div>
+            <div className="row">
+                <div className="offset-8 col-2 text-end">
                     <ReactHTMLTableToExcel
                         className="btn text-white mb-2 btn-success"
                         table="reseptionReport"
@@ -173,6 +195,9 @@ export const ClientsPages = () => {
                         sheet="Sheet"
                         buttonText="Excel"
                     />
+                </div>
+                <div className=" col-2">
+                    <button className="btn text-white" style={{ backgroundColor: "#45D3D3" }} ><FontAwesomeIcon icon={faSyncAlt} /> </button>
                 </div>
 
             </div>
@@ -196,8 +221,9 @@ export const ClientsPages = () => {
                     </table>
                 </div>
             </div>
-            <div className="overflow-auto" style={{ height: "70vh", minWidth: "1000px" }}>
-                <table id="reseptionReport" className="table table-striped table-hover"  >
+
+            <div className="d-none" >
+                <table id="reseptionReport" className=" table-hover"  >
                     <thead className="d-none ">
                         <tr>
                             <th className="no" scope="" >№ <FontAwesomeIcon icon={faSort} /> </th>
@@ -207,11 +233,40 @@ export const ClientsPages = () => {
                             <th scope="" className="turn text-center">Navbati <FontAwesomeIcon icon={faSort} /></th>
                             <th scope="" className="phone text-center">Tel <FontAwesomeIcon icon={faSort} /></th>
                             <th scope="" className="section text-center">Bo'limi <FontAwesomeIcon icon={faSort} /></th>
-                            <th scope="" className="edit text-center">Tahrirlash <FontAwesomeIcon icon={faSort} /></th>
                             <th scope="" className="prices text-center">To'lov <FontAwesomeIcon icon={faSort} /></th>
-                            <th scope="" className="cek text-center">Cek <FontAwesomeIcon icon={faSort} /></th>
                         </tr>
                     </thead>
+                    <tbody className="" >
+                        {sections.map((section, key) => {
+                            return AllClients.map(client => {
+                                if (client._id === section.client) {
+                                    kk++
+                                    return (
+                                        <tr key={key} >
+                                            <td className="no" >{kk}</td>
+                                            <td className="date" >{new mongoose.Types.ObjectId(client._id).getTimestamp().toLocaleDateString()} {new mongoose.Types.ObjectId(client._id).getTimestamp().toLocaleTimeString()}</td>
+                                            <td className="fish text-uppercase" ><Link style={{ fontWeight: "500" }} to={`/reseption/clientallhistory/${client._id}`} > {client.lastname} {client.firstname} {client.fathername} </Link></td>
+                                            <td className="id" >{client.id}</td>
+                                            <td className="turn">{section.bron === "offline" ? section.turn : section.bron + " " + section.bronTime + " " + new Date(section.bronDay).toLocaleDateString()}</td>
+                                            <td className="phone">+{client.phone}</td>
+                                            <td className="section text-uppercase"> <Link to={`/reseption/clienthistory/${section._id}`} style={{ color: "#00aa00", fontWeight: "600" }} > {section.name} </Link></td>
+                                            <td className={section.payment === "to'langan" ? "text-success prices" : "text-danger prices "} >
+                                                {section.payment}
+                                            </td>
+                                        </tr>
+                                    )
+                                }
+                            })
+
+                        }
+                        )}
+                    </tbody>
+
+                </table>
+            </div>
+
+            <div className="overflow-auto" style={{ height: "70vh", minWidth: "1000px" }}>
+                <table className=" table-hover"  >
                     <tbody className="" >
                         {sections.map((section, key) => {
                             return AllClients.map(client => {
@@ -221,22 +276,24 @@ export const ClientsPages = () => {
                                         <tr key={key} >
                                             <td className="no" >{k}</td>
                                             <td className="date" >{new mongoose.Types.ObjectId(client._id).getTimestamp().toLocaleDateString()} {new mongoose.Types.ObjectId(client._id).getTimestamp().toLocaleTimeString()}</td>
-                                            <td className="fish" ><Link to={`/reseption/clientallhistory/${client._id}`} > {client.lastname} {client.firstname} {client.fathername} </Link></td>
+                                            <td className="fish text-uppercase" ><Link style={{ fontWeight: "500" }} to={`/reseption/clientallhistory/${client._id}`} > {client.lastname} {client.firstname} {client.fathername} </Link></td>
                                             <td className="id" >{client.id}</td>
-                                            <td className="turn">{section.bron === "offline" ? section.turn : section.bron + " " + section.bronTime}</td>
+                                            <td className="turn">{section.bron === "offline" ? section.turn : section.bron + " " + section.bronTime + " " + new Date(section.bronDay).toLocaleDateString()}</td>
                                             <td className="phone">+{client.phone}</td>
-                                            <td className="section"> <Link to={`/reseption/clienthistory/${section._id}`} > {section.name} </Link></td>
-                                            <td className="edit"> <Link to={`/reseption/edit/${client._id}`} > <FontAwesomeIcon icon={faPenAlt} className="text-primary" /> </Link>  </td>
-                                            <td className={section.payment === "kutilmoqda prices" ? "text-warning " : (section.payment === "to'langan " ? "text-success " : "text-danger ")} >{section.payment}</td>
+                                            <td className="section text-uppercase"> <Link to={`/reseption/clienthistory/${section._id}`} style={{ color: "#00aa00", fontWeight: "600" }} > {section.name} </Link></td>
+                                            <td className="edit"> <Link to={`/reseption/edit/${client._id}`} > <FontAwesomeIcon icon={faPenAlt} className="text-dark" /> </Link>  </td>
+                                            <td className={section.payment === "to'langan" ? "text-success prices" : "text-warning prices "} >
+                                                {section.payment === "to'langan" ? <FontAwesomeIcon icon={faCheck} /> : <FontAwesomeIcon icon={faClock} />}
+                                            </td>
                                             <td className="cek"> <Link to={`/reseption/reciept/${client._id}`} > <FontAwesomeIcon icon={faPrint} className="fa-2x" /> </Link>  </td>
                                         </tr>
                                     )
                                 }
                             })
-
                         }
                         )}
                     </tbody>
+
                 </table>
             </div>
         </div>
