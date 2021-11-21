@@ -16,42 +16,44 @@ import { ClientAllHistory } from './reseptionPages/CreateCleint/ClientAllHistory
 export const ReseptionRoutes = (isAuthenticated) => {
     if (isAuthenticated) {
         return (
-            <Switch>
-                <Route path="/reseption" exact >
-                    <Home />
-                </Route>
-                <Route path="/reseption/qabul"  >
-                    <CreateClient />
-                </Route>
-                <Route path="/reseption/onlineqabul"  >
-                    <CreateOnlineClient />
-                </Route>
-                <Route path="/reseption/clients" >
-                    <ClientsPages />
-                </Route>
-                <Route path="/reseption/onlineclients" >
-                    <ClientsOnlinePages />
-                </Route>
-                <Route path="/reseption/reciept/:id" >
-                    <Reciept />
-                </Route>
-                <Route path="/reseption/edit/:id" >
-                    <EditClient />
-                </Route>z
-                <Route path="/reseption/cost" >
-                    <CreateCost />
-                </Route>
-                <Route path="/reseption/costs" >
-                    <CostsPages />
-                </Route>
-                <Route path="/reseption/clienthistory/:id" >
-                    <ClientHistory />
-                </Route>
-                <Route path="/reseption/clientallhistory/:id" >
-                    <ClientAllHistory />
-                </Route>
-                <Redirect to="/reseption" />
-            </Switch>
+            <div style={{marginTop:"90px"}} >
+                <Switch >
+                    <Route path="/reseption" exact >
+                        <Home />
+                    </Route>
+                    <Route path="/reseption/qabul"  >
+                        <CreateClient />
+                    </Route>
+                    <Route path="/reseption/onlineqabul"  >
+                        <CreateOnlineClient />
+                    </Route>
+                    <Route path="/reseption/clients" >
+                        <ClientsPages />
+                    </Route>
+                    <Route path="/reseption/onlineclients" >
+                        <ClientsOnlinePages />
+                    </Route>
+                    <Route path="/reseption/reciept/:id" >
+                        <Reciept />
+                    </Route>
+                    <Route path="/reseption/edit/:id" >
+                        <EditClient />
+                    </Route>z
+                    <Route path="/reseption/cost" >
+                        <CreateCost />
+                    </Route>
+                    <Route path="/reseption/costs" >
+                        <CostsPages />
+                    </Route>
+                    <Route path="/reseption/clienthistory/:id" >
+                        <ClientHistory />
+                    </Route>
+                    <Route path="/reseption/clientallhistory/:id" >
+                        <ClientAllHistory />
+                    </Route>
+                    <Redirect to="/reseption" />
+                </Switch>
+            </div>
         )
     }
     return (

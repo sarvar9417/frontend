@@ -2,10 +2,11 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { Loader } from '../components/Loader'
 import { useHttp } from '../hooks/http.hook'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPenAlt } from '@fortawesome/free-solid-svg-icons'
+import { faPenAlt, faSearch, faSort } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import DatePicker from "react-datepicker"
+import './tableStyle.css'
 
 import "react-datepicker/dist/react-datepicker.css"
 const mongoose = require('mongoose')
@@ -51,7 +52,7 @@ export const ClientsPages = () => {
     const searchDate = () => {
         let c = []
         AllSections.map((section) => {
-            if (setSortDate(section) && section.bron === "offline") {
+            if (setSortDate(section)) {
                 c.push(section)
             }
         })
@@ -62,7 +63,7 @@ export const ClientsPages = () => {
         let c = []
         AllSections.map((section) => {
             AllClients.map((client) => {
-                if (client.id === clientId && section.client === client._id && section.bron === "offline") {
+                if (client.id === clientId && section.client === client._id) {
                     c.push(section)
                 }
             })
@@ -83,7 +84,7 @@ export const ClientsPages = () => {
                 month = new Date(client.born).getMonth().toString() < 10 ? "0" + new Date(client.born).getMonth().toString() : new Date(client.born).getMonth().toString()
                 day = new Date(client.born).getDate().toString() < 10 ? "0" + new Date(client.born).getDate().toString() : new Date(client.born).getDate().toString()
                 let date2 = parseInt(year + month + day)
-                if (date1 === date2 && section.client === client._id && section.bron === "offline") {
+                if (date1 === date2 && section.client === client._id) {
                     console.log(date1);
                     c.push(section)
                 }
@@ -117,64 +118,77 @@ export const ClientsPages = () => {
     }
 
     return (
-        <div className="container m-5" >
-            <div className="row">
-                <div className="col-md-2 col-sm-6 mt-3">
-                    <DatePicker className="form-control" selected={startDate} onChange={(date) => { setStartDate(date) }} />
-                </div>
-                <div className="col-md-2 col-sm-6 mt-3">
-                    <DatePicker className="form-control" selected={endDate} onChange={(date) => setEndDate(date)} />
-                    <button onClick={searchDate} className="btn btn-success mt-1">Qidirish</button>
-                </div>
-                <div className=" offset-md-2 col-md-2 col-sm-6 mt-3">
-                    <input defaultValue={clientId} onChange={(event) => { setClientId(parseInt(event.target.value)) }} className="form-control" type="number" placeholder="ID qidiruvi" />
-                    <button onClick={searchId} className="btn btn-success mt-1">Qidirish</button>
-                </div>
-                <div className="offset-md-2 col-md-2 col-sm-6 mt-3">
-                    <input className="form-control" type="date" onChange={(event) => { setBorn(new Date(event.target.value)) }} />
-                    <button onClick={searchBornDate} className="btn btn-success mt-1">Qidirish</button>
+        <div className="container m-5"  >
+
+                <div className="row mb-3">
+                    <div className="col-md-2 col-sm-4">
+                        <DatePicker className="form-control" selected={startDate} onChange={(date) => { setStartDate(date) }} />
+                    </div>
+                    <div className="col-md-2 col-sm-4 ">
+                        <DatePicker className="form-control" selected={endDate} onChange={(date) => setEndDate(date)} />
+                    </div>
+                    <div className="col-md-1 col-sm-4 ">
+                        <button onClick={searchDate} className="btn text-white" style={{ backgroundColor: "#45D3D3" }}> <FontAwesomeIcon icon={faSearch} /> </button>
+                    </div>
+                    <div className=" col-md-2 col-sm-6 ">
+                        <input defaultValue={clientId} onChange={(event) => { setClientId(parseInt(event.target.value)) }} className="form-control" type="number" placeholder="ID qidiruvi" />
+                    </div>
+                    <div className=" col-md-1 col-sm-6 ">
+                        <button onClick={searchId} className="btn text-white" style={{ backgroundColor: "#45D3D3" }}><FontAwesomeIcon icon={faSearch} /></button>
+                    </div>
+                    <div className=" col-md-2 col-sm-6 ">
+                        <input className="form-control" type="date" onChange={(event) => { setBorn(new Date(event.target.value)) }} />
+                    </div>
+                    <div className=" col-md-2 col-sm-6 ">
+                        <button onClick={searchBornDate} className="btn text-white" style={{ backgroundColor: "#45D3D3" }}><FontAwesomeIcon icon={faSearch} /></button>
+                    </div>
+
+                <div className="" >
+                    <table className="table-striped table-hover" style={{ borderBottom: "1px solid #aaa", marginBottom: "10px" }} >
+                        <thead>
+                            <tr>
+                                <th className="no" scope="" >№ <FontAwesomeIcon icon={faSort} /> </th>
+                                <th scope="" className="date text-center" >Kelgan vaqti <FontAwesomeIcon icon={faSort} /></th>
+                                <th scope="" className="fish text-center">F.I.Sh <FontAwesomeIcon icon={faSort} /></th>
+                                <th scope="" className="id text-center">ID <FontAwesomeIcon icon={faSort} /></th>
+                                <th scope="" className="turn text-center">Navbati <FontAwesomeIcon icon={faSort} /></th>
+                                <th scope="" className="phone text-center">Tel <FontAwesomeIcon icon={faSort} /></th>
+                                <th scope="" className="section text-center">Bo'limi <FontAwesomeIcon icon={faSort} /></th>
+                                <th scope="" className="edit text-center">Tahrirlash <FontAwesomeIcon icon={faSort} /></th>
+                                <th scope="" className="prices text-center">To'lov <FontAwesomeIcon icon={faSort} /></th>
+                            </tr>
+                        </thead>
+                    </table>
                 </div>
             </div>
+            <div className="overflow-auto" style={{ height: "70vh" }}>
+                <table className="table table-striped table-hover"  >
+                    <tbody className="" >
+                        {sections.map((section, key) => {
+                            return AllClients.map(client => {
+                                if (client._id === section.client) {
+                                    k++
+                                    return (
+                                        <tr key={key} >
+                                            <td className="no" >{k}</td>
+                                            <td className="date" >{new mongoose.Types.ObjectId(client._id).getTimestamp().toLocaleDateString()} {new mongoose.Types.ObjectId(client._id).getTimestamp().toLocaleTimeString()}</td>
+                                            <td className="fish" ><Link to={`/reseption/clientallhistory/${client._id}`} > {client.lastname} {client.firstname} {client.fathername} </Link></td>
+                                            <td className="id" >{client.id}</td>
+                                            <td className="turn">{section.turn}</td>
+                                            <td className="phone">+{client.phone}</td>
+                                            <td className="section"> <Link to={`/reseption/clienthistory/${section._id}`} > {section.name} </Link></td>
+                                            <td className="edit"> <Link to={`/reseption/edit/${client._id}`} > <FontAwesomeIcon icon={faPenAlt} /> </Link>  </td>
+                                            <td className={section.payment === "kutilmoqda prices" ? "text-warning prices" : (section.payment === "to'langan" ? "text-success" : "text-danger")} >{section.payment}</td>
+                                        </tr>
+                                    )
+                                }
+                            })
 
-            <table className="table table-striped table-hover">
-                <thead>
-                    <tr>
-                        <th scope="col">№</th>
-                        <th scope="col">Kelgan vaqti</th>
-                        <th scope="col">F.I.Sh</th>
-                        <th scope="col">ID</th>
-                        <th scope="col">Navbati</th>
-                        <th scope="col">Tel</th>
-                        <th scope="col">Bo'limi</th>
-                        <th scope="col">Tahrirlash</th>
-                        <th scope="col">To'lov</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {sections.map((section, key) => {
-                        return AllClients.map(client => {
-                            if (client._id === section.client && section.bron === "offline") {
-                                k++
-                                return (
-                                    <tr key={key} >
-                                        <td>{k}</td>
-                                        <td>{new mongoose.Types.ObjectId(client._id).getTimestamp().toLocaleDateString()} {new mongoose.Types.ObjectId(client._id).getTimestamp().toLocaleTimeString()}</td>
-                                        <td><Link to={`/reseption/clientallhistory/${client._id}`} > {client.lastname} {client.firstname} {client.fathername} </Link></td>
-                                        <td>{client.id}</td>
-                                        <td>{ section.turn}</td>
-                                        <td>+{client.phone}</td>
-                                        <td> <Link to={`/reseption/clienthistory/${section._id}`} > {section.name} </Link></td>
-                                        <td> <Link to={`/reseption/edit/${client._id}`} > <FontAwesomeIcon icon={faPenAlt} /> </Link>  </td>
-                                        <td className={section.payment === "kutilmoqda" ? "text-warning" : (section.payment === "to'langan" ? "text-success" : "text-danger")} >{section.payment}</td>
-                                    </tr>
-                                )
-                            }
-                        })
-
-                    }
-                    )}
-                </tbody>
-            </table>
+                        }
+                        )}
+                    </tbody>
+                </table>
+            </div>
         </div>
     )
 }
