@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState, Component } from 'react'
 import { Loader } from '../components/Loader'
 import { useHttp } from '../hooks/http.hook'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -7,12 +7,20 @@ import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import DatePicker from "react-datepicker"
 import './tableStyle.css'
+import Select from 'react-select'
 
 import "react-datepicker/dist/react-datepicker.css"
 const mongoose = require('mongoose')
 
 toast.configure()
 export const ClientsPages = () => {
+
+    const options = [
+        { value: 'all', label: 'Barcha' },
+        { value: 'offline', label: 'Offline' },
+        { value: 'online', label: 'Online' }
+    ]
+
     let k = 0
     const [startDate, setStartDate] = useState(new Date())
     const [endDate, setEndDate] = useState(new Date())
@@ -120,30 +128,33 @@ export const ClientsPages = () => {
     return (
         <div className="container m-5"  >
 
-                <div className="row mb-3">
-                    <div className="col-md-2 col-sm-4">
-                        <DatePicker className="form-control" selected={startDate} onChange={(date) => { setStartDate(date) }} />
-                    </div>
-                    <div className="col-md-2 col-sm-4 ">
-                        <DatePicker className="form-control" selected={endDate} onChange={(date) => setEndDate(date)} />
-                    </div>
-                    <div className="col-md-1 col-sm-4 ">
-                        <button onClick={searchDate} className="btn text-white" style={{ backgroundColor: "#45D3D3" }}> <FontAwesomeIcon icon={faSearch} /> </button>
-                    </div>
-                    <div className=" col-md-2 col-sm-6 ">
-                        <input defaultValue={clientId} onChange={(event) => { setClientId(parseInt(event.target.value)) }} className="form-control" type="number" placeholder="ID qidiruvi" />
-                    </div>
-                    <div className=" col-md-1 col-sm-6 ">
-                        <button onClick={searchId} className="btn text-white" style={{ backgroundColor: "#45D3D3" }}><FontAwesomeIcon icon={faSearch} /></button>
-                    </div>
-                    <div className=" col-md-2 col-sm-6 ">
-                        <input className="form-control" type="date" onChange={(event) => { setBorn(new Date(event.target.value)) }} />
-                    </div>
-                    <div className=" col-md-2 col-sm-6 ">
-                        <button onClick={searchBornDate} className="btn text-white" style={{ backgroundColor: "#45D3D3" }}><FontAwesomeIcon icon={faSearch} /></button>
-                    </div>
+            <div className="row mb-3">
+                <div className=" col-lg-2 col-md-4 col-sm-4">
+                    <DatePicker className="form-control mb-2" selected={startDate} onChange={(date) => { setStartDate(date) }} />
+                </div>
+                <div className="col-lg-2 col-md-4 col-sm-4">
+                    <DatePicker className="form-control mb-2" selected={endDate} onChange={(date) => setEndDate(date)} />
+                </div>
+                <div className="col-lg-1 col-md-1 col-sm-1  ">
+                    <button onClick={searchDate} className="btn text-white mb-2" style={{ backgroundColor: "#45D3D3" }}> <FontAwesomeIcon icon={faSearch} /> </button>
+                </div>
+                <div className="col-lg-2 col-md-4 col-sm-6 mb-2">
+                    <input style={{ marginRight: "5px", width:"115px" }} defaultValue={clientId} onChange={(event) => { setClientId(parseInt(event.target.value)) }} className="form-control pb-2 d-inline-block" type="number" placeholder="ID qidiruvi" />
+                    <button onClick={searchId} className="btn text-white" style={{ backgroundColor: "#45D3D3" }}><FontAwesomeIcon icon={faSearch} /></button>
+                </div>
+                <div className="col-lg-2 col-md-4 col-sm-4  ">
+                    <input className="form-control mb-2" type="date" onChange={(event) => { setBorn(new Date(event.target.value)) }} />
+                </div>
+                <div className="col-lg-1 col-md-1 col-sm-2">
+                    <button onClick={searchBornDate} className="btn text-white mb-2" style={{ backgroundColor: "#45D3D3" }}><FontAwesomeIcon icon={faSearch} /></button>
+                </div>
+                <div className="col-lg-2 col-md-6 col-sm-6 ">
+                    <Select defaultValue={options[0]} options={options} />
+                </div>
 
-                <div className="" >
+            </div>
+            <div>
+                <div style={{ minWidth: "1000px" }} >
                     <table className="table-striped table-hover" style={{ borderBottom: "1px solid #aaa", marginBottom: "10px" }} >
                         <thead>
                             <tr>
@@ -161,7 +172,7 @@ export const ClientsPages = () => {
                     </table>
                 </div>
             </div>
-            <div className="overflow-auto" style={{ height: "70vh" }}>
+            <div className="overflow-auto" style={{ height: "70vh", minWidth: "1000px" }}>
                 <table className="table table-striped table-hover"  >
                     <tbody className="" >
                         {sections.map((section, key) => {
