@@ -5,6 +5,7 @@ import { faBars } from '@fortawesome/free-solid-svg-icons'
 import AOS from "aos"
 import "aos/dist/aos.css"
 import { AuthContext } from '../context/AuthContext'
+import './nav.css'
 
 export const Navbar = () => {
     useEffect(() => {
@@ -30,23 +31,23 @@ export const Navbar = () => {
                 <div className={show ? "collapse navbar-collapse" : "collapse navbar-collapse show"} id="navbarNav">
                     <ul className="navbar-nav ms-auto">
                         <li className="nav-item">
-                            <Link className="nav-link" to="/reseption/home">Bosh sahifa</Link>
+                            <Link className="nav-link a aktive" to="/reseption/home">Bosh sahifa</Link>
                         </li>
-                        <li className="nav-item ">
-                                <Link className="nav-link" to="/reseption/onlineqabul">Online qabul</Link>
+                        <li className="nav-item" >
+                            <Link className="nav-link a" to="/reseption/onlineqabul">Online qabul</Link>
                         </li>
-                        <li className="nav-item ">
-                            <Link className="nav-link" to="/reseption/onlineclients">Online mijozlar</Link>
+                        <li className="nav-item" >
+                            <Link className="nav-link a" to="/reseption/onlineclients">Online mijozlar</Link>
                         </li>
-                        <li className="nav-item ">
-                            <Link className="nav-link" to="/reseption/clients">Mijozlar</Link>
+                        <li className="nav-item ll" >
+                            <Link className="nav-link a" to="/reseption/clients">Mijozlar</Link>
                         </li>
-                        <li className="nav-item">
+                        {/* <li className="nav-item">
                             <Link className="nav-link" to="/reseption/cost">Xarajat</Link>
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link" to="/reseption/costs">Xarajatlar</Link>
-                        </li>
+                        </li> */}
                         <li className="nav-item" >
                             <span style={{ backgroundColor: "#EA5353" }} className="nav-link btn text-white" href="" onClick={logoutHandler} >Chiqish</span>
                         </li>
