@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import "react-datepicker/dist/react-datepicker.css";
 import { CreateClient } from './CreateClient';
+import { ChechCashier } from '../ChechCashier';
 
 export const Home = () => {
     const monthNames = ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentabr", "Oktabr", "Noyabr", "Dekabr"
@@ -24,7 +25,8 @@ export const Home = () => {
 
     return (
         <div className="container">
-            <CreateClient />
+            <ChechCashier />
+            {/* <CreateClient /> */}
             {/* <div className="row">
                 <div className="col-md-6">
                     <Link to="/reseption/qabul" >
