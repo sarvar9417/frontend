@@ -1,5 +1,9 @@
+.ull {
+    margin: 0 auto;
+}
+
 .ll {
-    margin-right: 250px;
+    list-style-type: none;
 }
 .a:hover {
     background-color: #eee;;

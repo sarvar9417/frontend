@@ -29,7 +29,7 @@ export const Navbar = () => {
                     <FontAwesomeIcon icon={faBars} className="navbar-icon" />
                 </button>
                 <div className={show ? "collapse navbar-collapse" : "collapse navbar-collapse show"} id="navbarNav">
-                    <ul className="navbar-nav ms-auto">
+                    <ul className="navbar-nav ms-auto ull">
                         <li className="nav-item">
                             <Link className="nav-link a aktive" to="/reseption/home">Bosh sahifa</Link>
                         </li>
@@ -39,7 +39,7 @@ export const Navbar = () => {
                         <li className="nav-item" >
                             <Link className="nav-link a" to="/reseption/onlineclients">Online mijozlar</Link>
                         </li>
-                        <li className="nav-item ll" >
+                        <li className="nav-item" >
                             <Link className="nav-link a" to="/reseption/clients">Mijozlar</Link>
                         </li>
                         {/* <li className="nav-item">
@@ -48,10 +48,11 @@ export const Navbar = () => {
                         <li className="nav-item">
                             <Link className="nav-link" to="/reseption/costs">Xarajatlar</Link>
                         </li> */}
-                        <li className="nav-item" >
+                        
+                    </ul>
+                    <li className="nav-item ll" >
                             <span style={{ backgroundColor: "#EA5353" }} className="nav-link btn text-white" href="" onClick={logoutHandler} >Chiqish</span>
                         </li>
-                    </ul>
                 </div>
             </div>
         </nav>
