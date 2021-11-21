@@ -25,7 +25,7 @@ export const Home = () => {
     return (
         <div className="container">
             <CreateClient />
-            <div className="row">
+            {/* <div className="row">
                 <div className="col-md-6">
                     <Link to="/reseption/qabul" >
                         <div className="weather-card one">
@@ -85,7 +85,7 @@ export const Home = () => {
                         </div>
                     </Link>
                 </div>
-            </div>
+            </div> */}
         </div>
 
     )

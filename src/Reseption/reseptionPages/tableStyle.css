@@ -22,25 +22,35 @@
 }
 
 .phone{
-    width: 150px;
+    width: 150px !important;
     text-align: center;
 }
 
 .section{
-    width: 140px;
+    width: 140px !important;
     text-align: center;
 }
 
 .edit {
     width: 150px;
-    text-align: center;
+    text-align: center !important;
 }
 
 .prices{
-    width: 100px;
+    width: 100px !important;
+}
+
+.position {
+    width: 150px !important;
 }
 
 a{
-    text-decoration: none;
+    text-decoration: none !important;
     color:#45D3D3;
 }
+
+.cek{
+    width: 100px !important;
+    text-align: center;
+}
+

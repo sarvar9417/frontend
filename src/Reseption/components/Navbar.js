@@ -32,33 +32,14 @@ export const Navbar = () => {
                         <li className="nav-item">
                             <Link className="nav-link" to="/reseption/home">Bosh sahifa</Link>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Qabul
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li className="nav-item">
-                                    <Link className="dropdown-item" to="/reseption/qabul">Offline qabul</Link>
-                                </li>
-                                <li><hr class="dropdown-divider" /></li>
-                                <li className="nav-item">
-                                    <Link className="dropdown-item" to="/reseption/onlineqabul">Online qabul</Link>
-                                </li>
-                            </ul>
+                        <li className="nav-item ">
+                                <Link className="nav-link" to="/reseption/onlineqabul">Online qabul</Link>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Mijozlar
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li className="nav-item">
-                                    <Link className="dropdown-item" to="/reseption/clients">Offline mijozlar</Link>
-                                </li>
-                                <li><hr class="dropdown-divider" /></li>
-                                <li className="nav-item">
-                                    <Link className="dropdown-item" to="/reseption/onlineclients">Online mijozlar</Link>
-                                </li>
-                            </ul>
+                        <li className="nav-item ">
+                            <Link className="nav-link" to="/reseption/onlineclients">Online mijozlar</Link>
+                        </li>
+                        <li className="nav-item ">
+                            <Link className="nav-link" to="/reseption/clients">Mijozlar</Link>
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link" to="/reseption/cost">Xarajat</Link>

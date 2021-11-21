@@ -104,7 +104,7 @@ export const NewClient = () => {
         ...client,
       });
       createAllSections(data._id);
-      // history.push(`/reseption/reciept/${data._id}`)
+      history.push(`/reseption/reciept/${data._id}`)
     } catch (e) {}
   };
 

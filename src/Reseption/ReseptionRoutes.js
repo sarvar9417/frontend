@@ -8,7 +8,7 @@ import { EditClient } from './reseptionPages/EditClient'
 import { CreateCost } from './reseptionPages/CreateCost'
 import { CostsPages } from './reseptionPages/CostsPages'
 import { Reciept } from './reseptionPages/CreateCleint/Reciept'
-import { ClientsOnlinePages } from './reseptionPages/ClientsOnlinePages'
+import { ClientsOnPages } from './reseptionPages/ClientsOnPages'
 import { CreateOnlineClient } from './reseptionPages/CreateOnlineClient'
 import { ClientHistory } from './reseptionPages/CreateCleint/ClientHistory'
 import { ClientAllHistory } from './reseptionPages/CreateCleint/ClientAllHistory'
@@ -16,7 +16,7 @@ import { ClientAllHistory } from './reseptionPages/CreateCleint/ClientAllHistory
 export const ReseptionRoutes = (isAuthenticated) => {
     if (isAuthenticated) {
         return (
-            <div style={{marginTop:"90px"}} >
+            <div style={{ marginTop: "90px" }} >
                 <Switch >
                     <Route path="/reseption" exact >
                         <Home />
@@ -31,7 +31,7 @@ export const ReseptionRoutes = (isAuthenticated) => {
                         <ClientsPages />
                     </Route>
                     <Route path="/reseption/onlineclients" >
-                        <ClientsOnlinePages />
+                        <ClientsOnPages />
                     </Route>
                     <Route path="/reseption/reciept/:id" >
                         <Reciept />
