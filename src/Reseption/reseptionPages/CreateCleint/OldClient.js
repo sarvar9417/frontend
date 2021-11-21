@@ -162,19 +162,18 @@ export const OldClient = () => {
         </div>
       </div>
       <div className="row">
-        <div className="col-md-6">
-          <label className="labels"></label>
+        <div className="col-md-6 input_box" data-aos="fade-right">
           <input
             onChange={(event) => searchClient(parseInt(event.target.value))}
             name="ID"
             type="number"
-            className="form-control"
-            placeholder="Mijoznig ID raqaminin kiriting"
+            className="form-control inp"
+            placeholder=""
             style={{ fontSize: "14px" }}
           />
+          <label className="labels">Mijoznig ID raqami</label>
         </div>
-        <div className="col-md-6">
-          <label className="labels"></label>
+        <div className="col-md-6 input_box" data-aos="fade-left">
           <input
             defaultValue={client.phone}
             onChange={changeHandlar}
@@ -182,50 +181,53 @@ export const OldClient = () => {
             name="phone"
             maxLength="12"
             minLength="12"
-            className="form-control"
-            placeholder="Telefon raqamini o'zgartirish"
+            className="form-control inp"
+            placeholder=""
             style={{ fontSize: "14px" }}
           />
+          <label className="labels">Telefon raqami</label>
         </div>
       </div>
-      <div className="row">
-        <div className="col-md-6">
-          <label className="labels"></label>
+      <div className="row" style={{padding:"15px 0"}}>
+        <div className="col-md-6 input_box" data-aos="fade-right">
           <input
             defaultValue={client.lastname}
             disabled
             name="lastname"
             type="text"
-            className="form-control"
-            placeholder="Familiyasini kiriting"
+            className="form-control inp"
+            placeholder=""
+            style={{background:"#fff"}}
           />
+          <label className="labels" style={{top:"-7px",fontSize:"12px",fontWeight:"500"}}>Familiya</label>
         </div>
-        <div className="col-md-6">
-          <label className="labels"></label>
+        <div className="col-md-6 input_box" data-aos="fade-left">
           <input
             defaultValue={client.firstname}
             disabled
             name="firstname"
             type="text"
-            className="form-control"
-            placeholder="Ismini kiriting"
+            className="form-control inp"
+            placeholder=""
+            style={{background:"#fff"}}
           />
+          <label className="labels"  style={{top:"-7px",fontSize:"12px",fontWeight:"500"}}>Ism</label>
         </div>
       </div>
       <div className="row">
-        <div className="col-md-6">
-          <label className="labels"></label>
+        <div className="col-md-6 input_box" data-aos="fade-right">
           <input
             defaultValue={client.fathername}
             disabled
             name="fathername"
             type="text"
-            className="form-control"
-            placeholder="Otasining ismini kiriting"
+            className="form-control inp"
+            placeholder=""
+            style={{background:"#fff"}}
           />
+          <label className="labels" style={{top:"-7px",fontSize:"12px",fontWeight:"500"}}>Otasining ismi</label>
         </div>
-        <div className="col-md-6">
-          <label className="labels"></label>
+        <div className="col-md-6 input_box" data-aos="fade-left">
           <input
             value={
               new Date(client.born).getFullYear().toString() +
@@ -241,16 +243,18 @@ export const OldClient = () => {
             disabled
             type="date"
             name="born"
-            className="form-control"
-            placeholder="Telefon raqamini kiriting"
+            className="form-control inp"
+            placeholder=""
+            style={{background:"#fff",color:"#999"}}
           />
+          <label className="labels" style={{top:"-7px",fontSize:"12px",fontWeight:"500"}}>Tug'ilgan sanasi</label>
         </div>
       </div>
       <div className="row"></div>
       <hr className="form-control" />
 
       <div className="row">
-        <div className="col-md-12">
+        <div className="col-md-12" data-aos="zoom-out">
           <label className="labels">qayta tanlaganda narx o'chib ketadi</label>
           <Select
             onChange={(event) => changeSections(event)}
@@ -326,7 +330,7 @@ export const OldClient = () => {
                 </div>
 
             </div> */}
-      <div className="mt-5 text-center">
+      <div className="mt-3 text-center" data-aos="fade-up">
         <button
           onClick={createAllSections}
           className="btn btn-primary profile-button"

@@ -7,6 +7,8 @@ import { toast } from 'react-toastify'
 import Select from 'react-select'
 import makeAnimated from 'react-select/animated'
 import { CheckClentData } from './CheckClentData'
+import '../radio.css'
+
 const mongoose = require("mongoose")
 const animatedComponents = makeAnimated()
 
@@ -155,95 +157,106 @@ export const NewOnlineClient = () => {
                 </div>
             </div>
             <div className="row">
-                <div className="col-md-6">
-                    <label className="labels"></label>
+                <div className="col-md-6 input_box" data-aos="fade-right">
                     <input
                         onChange={changeHandlar}
                         name='lastname'
                         type="text"
-                        className="form-control"
-                        placeholder="Familiyasini kiriting"
+                        className="form-control inp"
+                        placeholder=""
                     />
+                    <label className="labels">Familiya</label>
                 </div>
-                <div className="col-md-6">
-                    <label className="labels"></label>
+                <div className="col-md-6 input_box" data-aos="fade-left">
                     <input
                         onChange={changeHandlar}
                         name="firstname"
                         type="text"
-                        className="form-control"
-                        placeholder="Ismini kiriting" />
+                        className="form-control inp"
+                        placeholder="" />
+                    <label className="labels">Ism</label>
                 </div>
             </div>
-            <div className="row">
-                <div className="col-md-6">
-                    <label className="labels"></label>
+            <div className="row" style={{padding:"15px 0"}}>
+                <div className="col-md-6 input_box"  data-aos="fade-right">
                     <input
                         onChange={changeHandlar}
                         name="fathername"
                         type="text"
-                        className="form-control"
-                        placeholder="Otasining ismini kiriting"
+                        className="form-control inp"
+                        placeholder=""
                     />
+                    <label className="labels">Otasining ismi</label>
                 </div>
-                <div className="col-md-6">
-                    <label className="labels">
-                    </label>
+                <div className="col-md-6 input_box" data-aos="fade-left">
                     <input
                         onChange={changeDate}
                         type="date"
                         name='born'
-                        className="form-control"
-                        placeholder="Telefon raqamini kiriting"
+                        className="form-control inp"
+                        placeholder=""
+                        style={{color:"#999"}}
                     />
+                    <label className="labels">Tug'ilgan kuni</label>
                 </div>
             </div>
             <div className="row">
-                <div className="col-md-6">
+                <div className="col-md-6" data-aos="zoom-out">
                     <div className="form-group">
-                        <label className="text-muted mandatory d-block">Jinsi</label>
+                        {/* <label className="text-muted mandatory d-block">Jinsi</label> */}
                         <div className="btn-group" data-toggle="buttons">
-                            <label htmlFor="gender" className="btn btn-primary form-check-label">
-                                <input
-                                    onChange={changeHandlar}
-                                    name="gender"
-                                    className="form-check-input"
-                                    type="radio"
-                                    defaultValue="man"
-                                />
-                                Erkak
-                            </label>
-                            <label htmlFor="gender" className="btn btn-primary form-check-label">
-                                <input
-                                    onChange={changeHandlar}
-                                    defaultValue="woman"
-                                    name="gender"
-                                    className="form-check-input"
-                                    type="radio"
-                                />
-                                Ayol
-                            </label>
+                        <div className="wrapper">
+                <input
+                  className="input"
+                  id="erkak"
+                  onChange={changeHandlar}
+                  name="gender"
+                  type="radio"
+                  defaultValue="man"
+                />
+                <label
+                  className={client.gender === "man" ? "label clabel" : "label"}
+                  for="erkak"
+                >
+                  Erkak
+                </label>
+                <input
+                  className="input"
+                  type="radio"
+                  id="ayol"
+                  onChange={changeHandlar}
+                  name="gender"
+                  defaultValue="woman"
+                />
+                <label
+                  className={
+                    client.gender === "woman" ? "label clabel" : "label"
+                  }
+                  for="ayol"
+                >
+                  Ayol
+                </label>
+              </div>
                         </div>
                     </div>
                 </div>
-                <div className="col-md-6">
-                    <label className="labels">
-                    </label>
+                <div className="col-md-6 input_box" data-aos="fade-left"> 
                     <input
                         onChange={changeHandlar}
                         type="number"
                         name='phone'
                         maxLength="12"
                         minLength="12"
-                        className="form-control"
-                        placeholder="Telefon raqamini kiriting"
+                        className="form-control inp"
+                        placeholder=""
                     />
+                    <label className="labels">Telefon raqami</label>
                 </div>
             </div>
             <hr className="form-control" />
 
             <div className="row" >
-                <div className="col-md-12" >
+                <div className="col-md-12"  data-aos="zoom-out" >
                     <label className="labels">qayta tanlaganda narx va vaqt o'chib ketadi
                     </label>
                     <Select
@@ -347,7 +360,7 @@ export const NewOnlineClient = () => {
                 </div>
 
             </div> */}
-            <div className="mt-5 text-center">
+            <div className="mt-3 text-center" data-aos="fade-up">
                 <button
                     onClick={checkData}
                     className="btn btn-primary profile-button"

@@ -337,7 +337,7 @@ export const NewClient = () => {
                 </div>
 
             </div> */}
-      <div className="mt-3 text-center">
+      <div className="mt-3 text-center" data-aos="fade-up">
         <button onClick={checkData} className="btn btn-primary profile-button">
           Saqlash
         </button>
