@@ -14,7 +14,7 @@ export const useRoutes = () => {
             <Route path="/director" >
                 <Director />
             </Route>
-            <Route path="/Cashier" >
+            <Route path="/cashier" >
                 <Cashier />
             </Route>
             <Route path="/" >

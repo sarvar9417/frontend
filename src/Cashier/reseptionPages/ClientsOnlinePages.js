@@ -153,7 +153,7 @@ export const ClientsOnlinePages = () => {
                         <th scope="col">Kelgan vaqti</th>
                         <th scope="col">F.I.Sh</th>
                         <th scope="col">ID</th>
-                        <th scope="col">Navbati</th>
+                        <th scope="col">Kelish vaqti</th>
                         <th scope="col">Tel</th>
                         <th scope="col">Bo'limi</th>
                         <th scope="col">Tahrirlash</th>

@@ -71,7 +71,7 @@ export const Sayt = () => {
 
                     </article>
                 </Link>
-                <Link data-aos="fade-up">
+                <Link data-aos="fade-up" to="/cashier">
                     <article className="link orange">
                         <div className="info">
                             <h2>KASSA</h2>

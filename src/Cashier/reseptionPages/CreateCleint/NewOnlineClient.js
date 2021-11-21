@@ -6,35 +6,51 @@ import { Loader } from '../../components/Loader'
 import { toast } from 'react-toastify'
 import Select from 'react-select'
 import makeAnimated from 'react-select/animated'
-// import { CheckClentData } from './CheckClentData'
+import { CheckClentData } from './CheckClentData'
+import '../radio.css'
+
 const mongoose = require("mongoose")
 const animatedComponents = makeAnimated()
 
 toast.configure()
-export const OldClient = () => {
+export const NewOnlineClient = () => {
     let s = []
     const { loading, request, error, clearError } = useHttp()
     const [turns, seTurns] = useState([])
     const [sections, setSections] = useState([])
-    const [clients, setClients] = useState()
     const notify = (e) => {
         toast.error(e)
     }
     const history = useHistory()
     const [client, setClient] = useState({
-        _id: '',
         firstname: '',
         lastname: '',
         fathername: '',
         gender: '',
         phone: '',
         id: 0,
-        born: '',
+        born: ''
     })
 
     const changeHandlar = event => {
         setClient({ ...client, [event.target.name]: event.target.value })
 
+    }
+
+    const changeTime = (event) => {
+        console.log(event.target.value);
+        let key = parseInt(event.target.id)
+        setSections(Object.values({ ...sections, [key]: { ...sections[key], bronTime: event.target.value } }))
+    }
+
+    const changeDate = (event) => {
+        setClient({ ...client, born: new Date(event.target.value) })
+    }
+
+    const changeBronDate = (event) => {
+        console.log(event.target.value);
+        let key = parseInt(event.target.id)
+        setSections(Object.values({ ...sections, [key]: { ...sections[key], bronDay: new Date(event.target.value) } }))
     }
 
     const changeSections = (event) => {
@@ -53,11 +69,11 @@ export const OldClient = () => {
                 summary: " ",
                 done: "tasdiqlanmagan",
                 payment: "kutilmoqda",
-                turn: turn + 1,
-                bron: 'offline',
+                turn: 0,
+                bron: 'online',
                 bronDay: new Date(),
                 bronTime: " ",
-                position: 'offline'
+                position: 'kutilmoqda'
             })
         })
         setSections(s)
@@ -71,47 +87,45 @@ export const OldClient = () => {
     const allClients = useCallback(async () => {
         try {
             const fetch = await request('/api/clients/', 'GET', null)
-            setClients(fetch)
-        } catch (e) { }
-    }, [request])
-
-    const allTurns = useCallback(async () => {
-        try {
             const sec = await request('/api/section/', 'GET', null)
             seTurns(sec)
+            client.id = fetch.length + 1000001
         } catch (e) { }
     }, [request])
 
-    const searchClient = (id) => {
-        clients.map((clt) => {
-            if (clt.id === id) {
-                setClient(clt)
-            }
-        })
+
+    const checkData = () => {
+        if (CheckClentData(client)) {
+            return notify(CheckClentData(client))
+        }
+        createHandler()
     }
 
-    const createAllSections = () => {
-        sections.map((section) => {
-            create(section)
-        })
-        history.push(`/reseption/reciept/${client._id}`)
-    }
-
-    const create = async (section) => {
+    const createHandler = async () => {
         try {
-            const data = await request(`/api/section/register/${client._id}`, 'POST', { ...section })
+            const data = await request('/api/clients/register', 'POST', { ...client })
+            createAllSections(data._id)
+            // history.push(`/reseption/reciept/${data._id}`)
+        } catch (e) { }
+    }
+
+    const createAllSections = (id) => {
+        sections.map((section) => {
+            create(id, section)
+        })
+        history.push(`/reseption/reciept/${id}`)
+    }
+
+    const create = async (id, section) => {
+        try {
+            const data = await request(`/api/section/register/${id}`, 'POST', { ...section })
             console.log(data);
         } catch (e) { }
     }
 
     useEffect(() => {
         allClients()
-        allTurns()
-    }, [allClients, allTurns])
-
-    useEffect(() => {
-        allTurns()
-    }, [allTurns])
+    }, [allClients])
 
 
     useEffect(() => {
@@ -143,114 +157,107 @@ export const OldClient = () => {
                 </div>
             </div>
             <div className="row">
-                <div className="col-md-6">
-                    <label className="labels"></label>
+                <div className="col-md-6 input_box" data-aos="fade-right">
                     <input
-                        onChange={(event) => searchClient(parseInt(event.target.value))}
-                        name='ID'
-                        type="number"
-                        className="form-control"
-                        placeholder="Mijoznig ID raqaminin kiriting"
-                    />
-                </div>
-            </div>
-            <div className="row">
-                <div className="col-md-6">
-                    <label className="labels"></label>
-                    <input
-                        defaultValue={client.lastname}
-                        disabled
+                        onChange={changeHandlar}
                         name='lastname'
                         type="text"
-                        className="form-control"
-                        placeholder="Familiyasini kiriting"
+                        className="form-control inp"
+                        placeholder=""
                     />
+                    <label className="labels">Familiya</label>
                 </div>
-                <div className="col-md-6">
-                    <label className="labels"></label>
+                <div className="col-md-6 input_box" data-aos="fade-left">
                     <input
-                        defaultValue={client.firstname}
-                        disabled
+                        onChange={changeHandlar}
                         name="firstname"
                         type="text"
-                        className="form-control"
-                        placeholder="Ismini kiriting" />
+                        className="form-control inp"
+                        placeholder="" />
+                    <label className="labels">Ism</label>
                 </div>
             </div>
-            <div className="row">
-                <div className="col-md-6">
-                    <label className="labels"></label>
+            <div className="row" style={{padding:"15px 0"}}>
+                <div className="col-md-6 input_box"  data-aos="fade-right">
                     <input
-                        defaultValue={client.fathername}
-                        disabled
+                        onChange={changeHandlar}
                         name="fathername"
                         type="text"
-                        className="form-control"
-                        placeholder="Otasining ismini kiriting"
+                        className="form-control inp"
+                        placeholder=""
                     />
+                    <label className="labels">Otasining ismi</label>
                 </div>
-                <div className="col-md-6">
-                    <label className="labels">
-                    </label>
+                <div className="col-md-6 input_box" data-aos="fade-left">
                     <input
-                        value={new Date(client.born).getFullYear().toString() + '-' + (new Date(client.born).getMonth() < 9 ? "0" + (new Date(client.born).getMonth() + 1).toString() : (new Date(client.born).getMonth() + 1).toString()) + '-' + (new Date(client.born).getDate() < 10 ? "0" + (new Date(client.born).getDate()).toString() : (new Date(client.born).getDate()).toString())}
-                        disabled
+                        onChange={changeDate}
                         type="date"
                         name='born'
-                        className="form-control"
-                        placeholder="Telefon raqamini kiriting"
+                        className="form-control inp"
+                        placeholder=""
+                        style={{color:"#999"}}
                     />
+                    <label className="labels">Tug'ilgan kuni</label>
                 </div>
             </div>
             <div className="row">
-                <div className="col-md-6">
+                <div className="col-md-6" data-aos="zoom-out">
                     <div className="form-group">
-                        <label className="text-muted mandatory d-block">Jinsi</label>
+                        {/* <label className="text-muted mandatory d-block">Jinsi</label> */}
                         <div className="btn-group" data-toggle="buttons">
-                            <label htmlFor="gender" className="btn btn-primary form-check-label">
-                                <input
-                                    onChange={changeHandlar}
-                                    name="gender"
-                                    className="form-check-input"
-                                    type="radio"
-                                    defaultValue="man"
-                                />
-                                Erkak
-                            </label>
-                            <label htmlFor="gender" className="btn btn-primary form-check-label">
-                                <input
-                                    onChange={changeHandlar}
-                                    defaultValue="woman"
-                                    name="gender"
-                                    className="form-check-input"
-                                    type="radio"
-                                />
-                                Ayol
-                            </label>
+                        <div className="wrapper">
+                <input
+                  className="input"
+                  id="erkak"
+                  onChange={changeHandlar}
+                  name="gender"
+                  type="radio"
+                  defaultValue="man"
+                />
+                <label
+                  className={client.gender === "man" ? "label clabel" : "label"}
+                  for="erkak"
+                >
+                  Erkak
+                </label>
+                <input
+                  className="input"
+                  type="radio"
+                  id="ayol"
+                  onChange={changeHandlar}
+                  name="gender"
+                  defaultValue="woman"
+                />
+                <label
+                  className={
+                    client.gender === "woman" ? "label clabel" : "label"
+                  }
+                  for="ayol"
+                >
+                  Ayol
+                </label>
+              </div>
                         </div>
                     </div>
                 </div>
-                <div className="col-md-6">
-                    <label className="labels">
-                    </label>
+                <div className="col-md-6 input_box" data-aos="fade-left"> 
                     <input
-                        defaultValue={client.phone}
                         onChange={changeHandlar}
                         type="number"
                         name='phone'
                         maxLength="12"
                         minLength="12"
-                        className="form-control"
-                        placeholder="Telefon raqamini kiriting"
+                        className="form-control inp"
+                        placeholder=""
                     />
+                    <label className="labels">Telefon raqami</label>
                 </div>
             </div>
             <hr className="form-control" />
 
             <div className="row" >
-                <div className="col-md-12" >
-                    <label className="labels">
-                        qayta tanlaganda narx o'chib ketadi
+                <div className="col-md-12"  data-aos="zoom-out" >
+                    <label className="labels">qayta tanlaganda narx va vaqt o'chib ketadi
                     </label>
                     <Select
                         onChange={(event) => changeSections(event)}
@@ -270,7 +277,7 @@ export const OldClient = () => {
                     sections.map((section, key) => {
                         return (
                             <>
-                                <div className="col-7" >
+                                <div className="col-md-4 col-sm-6" >
                                     <label className="text-muted mandatory"></label>
                                     <input
                                         defaultValue={section.price}
@@ -282,7 +289,7 @@ export const OldClient = () => {
                                         placeholder={section.name + " summasi"}
                                     />
                                 </div>
-                                <div className="col-5" >
+                                {/* <div className="col-5" >
                                     <label className="text-muted mandatory">{ } navbati</label>
                                     <input
                                         // onChange={changeHandlar}
@@ -291,6 +298,29 @@ export const OldClient = () => {
                                         placeholder="section"
                                         value={section.turn}
                                         disabled
+                                    />
+                                </div> */}
+                                <div className="col-md-4 col-sm-6">
+                                    <label className="labels"> Kelish vaqti
+                                    </label>
+                                    <input
+                                        id={key}
+                                        onChange={changeBronDate}
+                                        type="date"
+                                        name='bronDay'
+                                        className="form-control"
+                                    />
+                                </div>
+                                <div className="col-md-4 col-sm-6">
+                                    <label className="labels"></label>
+                                    <input
+                                        id={key}
+                                        value={section.bronTime}
+                                        onChange={changeTime}
+                                        type="time"
+                                        name='bronTime'
+                                        className="form-control"
+                                        placeholder="Vaqtni kiriting"
                                     />
                                 </div>
 
@@ -330,9 +360,9 @@ export const OldClient = () => {
                 </div>
 
             </div> */}
-            <div className="mt-5 text-center">
+            <div className="mt-3 text-center" data-aos="fade-up">
                 <button
-                    onClick={createAllSections}
+                    onClick={checkData}
                     className="btn btn-primary profile-button"
                 >
                     Saqlash

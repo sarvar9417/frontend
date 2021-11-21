@@ -6,14 +6,15 @@ import { AuthContext } from './context/AuthContext'
 import { Navbar } from './components/Navbar'
 
 export const Cashier = () => {
-    const { login, token, logout, reseptionId } = useAuth()
-    const isAuthenticated = !!token
-    const reseptionRouter = CashierRoutes(isAuthenticated)
+    const { login, token, logout, cashierId } = useAuth()
+    const isAuthenticated = true
+    // const isAuthenticated = !!token
+    const cashierRouter = CashierRoutes(isAuthenticated)
     return (
-        <AuthContext.Provider value={{ login, logout, token, reseptionId, isAuthenticated }} >
+        <AuthContext.Provider value={{ login, logout, token, cashierId, isAuthenticated }} >
             <Router>
                 {isAuthenticated && <Navbar />}
-                {reseptionRouter}
+                {cashierRouter}
             </Router>
         </AuthContext.Provider>
     )

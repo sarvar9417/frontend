@@ -165,32 +165,46 @@ export const OldOnlineClient = () => {
                 </div>
             </div>
             <div className="row">
-                <div className="col-md-6">
-                    <label className="labels"></label>
+                <div className="col-md-6 input_box">
                     <input
                         onChange={(event) => searchClient(parseInt(event.target.value))}
                         name='ID'
                         type="number"
-                        className="form-control"
-                        placeholder="Mijoznig ID raqaminin kiriting"
+                        className="form-control inp"
+                        placeholder=""
                     />
+                    <label className="labels">Mijoznig ID raqami</label>
+                </div>
+                <div className="col-md-6 input_box">
+                    <input
+                        value={client.phone}
+                        onChange={changeHandlar}
+                        type="number"
+                        name='phone'
+                        maxLength="12"
+                        minLength="12"
+                        className="form-control inp"
+                        placeholder=""
+                    />
+                    <label className="labels">Telefon raqami</label>
+
                 </div>
             </div>
-            <div className="row">
-                <div className="col-md-6">
-                    <label className="labels"></label>
+            <div className="row" style={{padding:"15px 0"}}>
+                <div className="col-md-6 input_box">
                     <input
                     value={client.lastname}
                         disabled
                         // onChange={changeHandlar}
                         name='lastname'
                         type="text"
-                        className="form-control"
-                        placeholder="Familiyasini kiriting"
+                        className="form-control inp"
+                        placeholder=""
+                        style={{background:"#fff"}}
                     />
+                    <label className="labels" style={{top:"-7px",fontSize:"12px",fontWeight:"500"}}>Familiya</label>
                 </div>
-                <div className="col-md-6">
-                    <label className="labels"></label>
+                <div className="col-md-6 input_box">
                     <input
                         disabled
                         value={client.firstname}
@@ -198,39 +212,43 @@ export const OldOnlineClient = () => {
                         // onChange={changeHandlar}
                         name="firstname"
                         type="text"
-                        className="form-control"
-                        placeholder="Ismini kiriting" />
+                        className="form-control inp"
+                        placeholder="" 
+                        style={{background:"#fff"}}
+                        />
+                <label className="labels" style={{top:"-7px",fontSize:"12px",fontWeight:"500"}}>Ism</label>
                 </div>
             </div>
             <div className="row">
-                <div className="col-md-6">
-                    <label className="labels"></label>
+                <div className="col-md-6 input_box">
                     <input
                         disabled
                         value={client.fathername}
                         // onChange={changeHandlar}
                         name="fathername"
                         type="text"
-                        className="form-control"
-                        placeholder="Otasining ismini kiriting"
+                        className="form-control inp"
+                        placeholder=""
+                        style={{background:"#fff"}}
                     />
+                    <label className="labels" style={{top:"-7px",fontSize:"12px",fontWeight:"500"}}>Otasining ismi</label>
                 </div>
-                <div className="col-md-6">
-                    <label className="labels">
-                    </label>
+                <div className="col-md-6 input_box">
                     <input
                         disabled
                         // onChange={changeDate}
                         value={new Date(client.born).getFullYear().toString() + '-' + (new Date(client.born).getMonth() < 9 ? "0" + (new Date(client.born).getMonth() + 1).toString() : (new Date(client.born).getMonth() + 1).toString()) + '-' + (new Date(client.born).getDate() < 10 ? "0" + (new Date(client.born).getDate()).toString() : (new Date(client.born).getDate()).toString())}
                         type="date"
                         name='born'
-                        className="form-control"
-                        placeholder="Telefon raqamini kiriting"
+                        className="form-control inp"
+                        placeholder=""
+                        style={{background:"#fff",color:"#999"}}
                     />
+                    <label className="labels" style={{top:"-7px",fontSize:"12px",fontWeight:"500"}}>Tug'ilgan sanasi</label>
                 </div>
             </div>
             <div className="row">
-                <div className="col-md-6">
+                {/* <div className="col-md-6">
                     <div className="form-group">
                         <label className="text-muted mandatory d-block">Jinsi</label>
                         <div className="btn-group" data-toggle="buttons">
@@ -256,21 +274,8 @@ export const OldOnlineClient = () => {
                             </label>
                         </div>
                     </div>
-                </div>
-                <div className="col-md-6">
-                    <label className="labels">
-                    </label>
-                    <input
-                        value={client.phone}
-                        onChange={changeHandlar}
-                        type="number"
-                        name='phone'
-                        maxLength="12"
-                        minLength="12"
-                        className="form-control"
-                        placeholder="Telefon raqamini kiriting"
-                    />
-                </div>
+                </div> */}
+                
             </div>
             <hr className="form-control" />
 
@@ -379,7 +384,7 @@ export const OldOnlineClient = () => {
                 </div>
 
             </div> */}
-            <div className="mt-5 text-center">
+            <div className="mt-3 text-center">
                 <button
                     onClick={createAllSections}
                     className="btn btn-primary profile-button"

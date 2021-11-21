@@ -1,64 +1,67 @@
 import React from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
-import { CreateClient } from './cashierPages/CreateClient'
-import { AuthPage } from './cashierPages/CashierAuth'
-import { Home } from './cashierPages/Home'
-import { EditClient } from './cashierPages/EditClient'
-import { CreateCost } from './cashierPages/CreateCost'
-import { CostsPages } from './cashierPages/CostsPages'
-import { Reciept } from './cashierPages/CreateCleint/Reciept'
-import { ClientsOnlinePages } from './cashierPages/ClientsOnlinePages'
-import { CreateOnlineClient } from './cashierPages/CreateOnlineClient'
-import { ClientAllHistory } from './cashierPages/CreateCleint/ClientAllHistory'
-import { Payment } from './cashierPages/Payment'
+import { CreateClient } from './reseptionPages/CreateClient'
+import { ClientsPages } from './reseptionPages/ClientsPages'
+import { AuthPage } from './reseptionPages/CashierAuth'
+import { Home } from './reseptionPages/Home'
+import { EditClient } from './reseptionPages/EditClient'
+import { CreateCost } from './reseptionPages/CreateCost'
+import { CostsPages } from './reseptionPages/CostsPages'
+import { Reciept } from './reseptionPages/CreateCleint/Reciept'
+import { ClientsOnPages } from './reseptionPages/ClientsOnPages'
+import { CreateOnlineClient } from './reseptionPages/CreateOnlineClient'
+import { ClientHistory } from './reseptionPages/CreateCleint/ClientHistory'
+import { ClientAllHistory } from './reseptionPages/CreateCleint/ClientAllHistory'
 
 export const CashierRoutes = (isAuthenticated) => {
     if (isAuthenticated) {
         return (
-            <Switch>
-                <Route path="/cashier" exact >
-                    <Home />
-                </Route>
-                <Route path="/cashier/qabul"  >
-                    <CreateClient />
-                </Route>
-                <Route path="/cashier/onlineqabul"  >
-                    <CreateOnlineClient />
-                </Route>
-                <Route path="/cashier/clients" >
-                    <Home />
-                </Route>
-                <Route path="/cashier/onlineclients" >
-                    <ClientsOnlinePages />
-                </Route>
-                <Route path="/cashier/reciept/:id" >
-                    <Reciept />
-                </Route>
-                <Route path="/cashier/edit/:id" >
-                    <EditClient />
-                </Route>z
-                <Route path="/cashier/cost" >
-                    <CreateCost />
-                </Route>
-                <Route path="/cashier/costs" >
-                    <CostsPages />
-                </Route>
-                <Route path="/cashier/payment/:id" >
-                    <Payment />
-                </Route>
-                <Route path="/cashier/clientallhistory/:id" >
-                    <ClientAllHistory />
-                </Route>
-                <Redirect to="/cashier" />
-            </Switch>
+            <div style={{ marginTop: "90px" }} >
+                <Switch >
+                    <Route path="/reseption" exact >
+                        <Home />
+                    </Route>
+                    <Route path="/reseption/qabul"  >
+                        <CreateClient />
+                    </Route>
+                    <Route path="/reseption/onlineqabul"  >
+                        <CreateOnlineClient />
+                    </Route>
+                    <Route path="/reseption/clients" >
+                        <ClientsPages />
+                    </Route>
+                    <Route path="/reseption/onlineclients" >
+                        <ClientsOnPages />
+                    </Route>
+                    <Route path="/reseption/reciept/:id" >
+                        <Reciept />
+                    </Route>
+                    <Route path="/reseption/edit/:id" >
+                        <EditClient />
+                    </Route>z
+                    <Route path="/reseption/cost" >
+                        <CreateCost />
+                    </Route>
+                    <Route path="/reseption/costs" >
+                        <CostsPages />
+                    </Route>
+                    <Route path="/reseption/clienthistory/:id" >
+                        <ClientHistory />
+                    </Route>
+                    <Route path="/reseption/clientallhistory/:id" >
+                        <ClientAllHistory />
+                    </Route>
+                    <Redirect to="/reseption" />
+                </Switch>
+            </div>
         )
     }
     return (
         <Switch>
-            <Route path="/cashier" >
+            <Route path="/reseption" >
                 <AuthPage />
             </Route>
-            <Redirect to="/cashier" />
+            <Redirect to="/reseption" />
         </Switch>
     )
 }
