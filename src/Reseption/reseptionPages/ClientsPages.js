@@ -24,11 +24,11 @@ export const ClientsPages = () => {
 
     let k = 0
     let kk = 0
+    let position = "all"
     const [startDate, setStartDate] = useState(new Date())
     const [endDate, setEndDate] = useState(new Date())
     const [born, setBorn] = useState('')
     const { loading, request } = useHttp()
-    const [clients, setClients] = useState([])
     const [sections, setSections] = useState([])
     const [AllSections, setAllSections] = useState([])
     const [AllClients, setAllClients] = useState([])
@@ -62,7 +62,7 @@ export const ClientsPages = () => {
     const searchDate = () => {
         let c = []
         AllSections.map((section) => {
-            if (setSortDate(section)) {
+            if (setSortDate(section) && position) {
                 c.push(section)
             }
         })
@@ -70,12 +70,18 @@ export const ClientsPages = () => {
     }
 
     const sortOnOff = (event) => {
+        position = event.value
         let c = []
         if (event.value === "all") {
-            setSections(AllSections)
+            AllSections.map((section) => {
+                if (setSortDate(section)) {
+                    c.push(section)
+                }
+            })
+            setSections(c)
         } else {
             AllSections.map((section) => {
-                if (section.bron === event.value)
+                if (section.bron === event.value && setSortDate(section) )
                     c.push(section)
             })
             setSections(c)
@@ -187,7 +193,7 @@ export const ClientsPages = () => {
                 </div>
             </div>
             <div className="row">
-                <div className="offset-8 col-2 text-end">
+                <div className="offset-10 col-1 text-end">
                     <ReactHTMLTableToExcel
                         className="btn text-white mb-2 btn-success"
                         table="reseptionReport"
@@ -196,8 +202,8 @@ export const ClientsPages = () => {
                         buttonText="Excel"
                     />
                 </div>
-                <div className=" col-2">
-                    <button className="btn text-white" style={{ backgroundColor: "#45D3D3" }} ><FontAwesomeIcon icon={faSyncAlt} /> </button>
+                <div className=" col-1 text-end">
+                    <button onClick={()=>setSections(AllSections)} className="btn text-white" style={{ backgroundColor: "#45D3D3" }} ><FontAwesomeIcon icon={faSyncAlt} /> </button>
                 </div>
 
             </div>
