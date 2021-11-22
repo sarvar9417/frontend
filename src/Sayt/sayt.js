@@ -9,6 +9,8 @@ import ReseptionIcon from './icons/resption.png'
 import Director from './icons/director.png'
 import Cashier from './icons/cashier.png'
 import Doctor from './icons/doctor.png'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faClock } from '@fortawesome/free-solid-svg-icons'
 
 export const Sayt = () => {
 
@@ -110,19 +112,13 @@ export const Sayt = () => {
                 </Link>
 
             </div>
-            {/* <div className="col-md-4 p-3">
-                        <Link className="card shadow bg-body rounded p-3 cards" to={`/reseption`} >
-                            <div className="row">
-                                <div className="col-6">
-                                    <h5>Qabul bo'limi</h5>
-                                </div>
-                                <div className="col-6">
-                                    <img style={{ width: "100px", height: "100px" }} className=" rounded-circle img-fluid float-end border border-success" src="https://static.thenounproject.com/png/2562652-200.png" alt="rasm" />
-                                </div>
-                            </div>
-                        </Link>
-                    </div> */}
 
+            <div className="d-inline-block" style={{ right: "0", bottom: "0", position: "fixed" }}>
+                <Link className="card shadow bg-body rounded p-3 cards" to="/turn" style={{ color: "#38c172" }}>
+                    <FontAwesomeIcon icon={faClock} className="fa-5x" />
+                </Link>
+            </div>
         </div>
+
     )
 }

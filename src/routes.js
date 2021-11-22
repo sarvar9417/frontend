@@ -4,6 +4,7 @@ import { Cashier } from './Cashier/Cashier'
 import { Director } from './Director/Director'
 import { Reseption } from './Reseption/Reseption'
 import { Sayt } from './Sayt/sayt'
+import { turn } from './Sayt/turn'
 
 export const useRoutes = () => {
     return (
@@ -16,6 +17,9 @@ export const useRoutes = () => {
             </Route>
             <Route path="/cashier" >
                 <Cashier />
+            </Route>
+            <Route path="/turn" >
+                <turn />
             </Route>
             <Route path="/" >
                 <Sayt />
