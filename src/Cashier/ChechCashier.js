@@ -9,7 +9,7 @@ export const ChechCashier = () => {
             <div className="row" style={{justifyContent:"center"}}>
                 <div className="col-md-7" style={{padding:"20px 10px",border:"1px solid #999",borderRadius:"5px"}}>
                 <div className="row" style={{justifyContent:"space-between"}}>
-                    <div className="col-md-4 input_box" data-aos="fade-right">
+                    <div className="col-sm-6 col-lg-4 input_box" data-aos="fade-right">
                         <input
                             name='ID'
                             type="number"
@@ -19,7 +19,7 @@ export const ChechCashier = () => {
                         <label className="labels">Mijoznig ID raqami</label>
                     </div>
             
-                    <div className="col-md-5 input_box" data-aos="fade-left">
+                    <div className="col-sm-6 col-lg-4 input_box" data-aos="fade-left">
                         <input
                             disabled
                             name='FIO'
@@ -208,7 +208,7 @@ export const ChechCashier = () => {
             <div className="row mt-3"  style={{margin:"auto",width:"100%",border:"2px solid blue",borderRadius:"5px"}} data-aos="zoom-out">
                 <div className="col-md-6" style={{display:"flex"}} >
                     <p style={{color:"blue",marginRight:"72%",marginBottom:"10px",marginTop:"10px",fontWeight:"600"}}>Umumiy</p>
-                    <p style={{marginRight:"35%",marginBottom:"10px",marginTop:"10px"}}>10000</p>
+                    <p style={{marginRight:"40%",marginBottom:"10px",marginTop:"10px"}}>10000</p>
                     <p style={{marginRight:"19%",marginBottom:"10px",marginTop:"10px"}}>12000</p>
                     <p style={{color:"red",marginBottom:"10px",marginTop:"10px"}}>Waiting...</p>
                 </div>
