@@ -207,8 +207,8 @@ export const ChechCashier = () => {
             </table>
             <div className="row mt-3"  style={{margin:"auto",width:"100%",border:"2px solid blue",borderRadius:"5px"}} data-aos="zoom-out">
                 <div className="col-md-6" style={{display:"flex"}} >
-                    <p style={{color:"blue",marginRight:"84%",marginBottom:"10px",marginTop:"10px",fontWeight:"600"}}>Umumiy</p>
-                    <p style={{marginRight:"17%",marginBottom:"10px",marginTop:"10px"}}>10000</p>
+                    <p style={{color:"blue",marginRight:"72%",marginBottom:"10px",marginTop:"10px",fontWeight:"600"}}>Umumiy</p>
+                    <p style={{marginRight:"35%",marginBottom:"10px",marginTop:"10px"}}>10000</p>
                     <p style={{marginRight:"19%",marginBottom:"10px",marginTop:"10px"}}>12000</p>
                     <p style={{color:"red",marginBottom:"10px",marginTop:"10px"}}>Waiting...</p>
                 </div>
