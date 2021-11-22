@@ -30,7 +30,7 @@ export const Sayt = () => {
         <div className="body">
             {/* <Particle />  */}
             <div className="header">
-                <h1>HALQ XIZMATI OLIY MAQSAD</h1>
+                <h1>XALQ XIZMATI OLIY MAQSAD</h1>
             </div>
             <div className="links">
                 <Link to="/reseption" data-aos="fade-right">
