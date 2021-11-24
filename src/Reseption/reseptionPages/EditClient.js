@@ -1,21 +1,25 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { useHttp } from '../hooks/http.hook'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { Loader } from '../components/Loader'
 import { CheckClentData } from './CreateCleint/CheckClentData'
+import { AuthContext } from '../context/AuthContext'
 
 
 toast.configure()
 export const EditClient = () => {
+    const auth = useContext(AuthContext)
     const clientId = useParams().id
     const { loading, request, error, clearError } = useHttp()
     const [form, setForm] = useState('')
 
     const getClient = useCallback(async () => {
         try {
-            const data = await request(`/api/clients/${clientId}`, 'GET', null)
+            const data = await request(`/api/clients/${clientId}`, 'GET', null, {
+                Authorization: `Bearer ${auth.token}`
+            })
             setForm({
                 firstname: data.firstname,
                 lastname: data.lastname,
@@ -52,7 +56,9 @@ export const EditClient = () => {
 
     const createHandler = async () => {
         try {
-            const data = await request(`/api/clients/${clientId}`, 'PATCH', { ...form })
+            const data = await request(`/api/clients/${clientId}`, 'PATCH', { ...form }, {
+                Authorization: `Bearer ${auth.token}`
+            })
             notify(data)
             history.push('/reseption/clients')
         } catch (e) {
@@ -66,7 +72,7 @@ export const EditClient = () => {
             clearError()
         }
         if (form === '') {
-            // getClient()
+            getClient()
         }
 
     }, [error, clearError, getClient, form])
@@ -164,7 +170,7 @@ export const EditClient = () => {
                                 <label className="labels">
                                 </label>
                                 <input
-                                onChange={changeDate}
+                                    onChange={changeDate}
                                     value={new Date(form.born).getFullYear().toString() + '-' + (new Date(form.born).getMonth() < 9 ? "0" + (new Date(form.born).getMonth() + 1).toString() : (new Date(form.born).getMonth() + 1).toString()) + '-' + (new Date(form.born).getDate() < 10 ? "0" + (new Date(form.born).getDate()).toString() : (new Date(form.born).getDate()).toString())}
                                     type="date"
                                     name='born'

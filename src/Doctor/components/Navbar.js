@@ -17,7 +17,7 @@ export const Navbar = () => {
     const logoutHandler = (event) => {
         event.preventDefault()
         auth.logout()
-        history.push('/reseption/auth')
+        history.push('/doctor')
     }
 
     const [show, setShow] = useState(true)

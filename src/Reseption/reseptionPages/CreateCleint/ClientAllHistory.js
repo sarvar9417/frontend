@@ -1,10 +1,15 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router'
 import { useReactToPrint } from 'react-to-print'
+import { AuthContext } from '../../context/AuthContext'
 import { useHttp } from '../../hooks/http.hook'
 const mongoose = require("mongoose")
 
 export const ClientAllHistory = () => {
+    const auth = useContext(AuthContext)
+    // {
+    //     Authorization: `Bearer ${auth.token}`
+    // }
     const componentRef = useRef()
     const handlePrint = useReactToPrint({
         content: () => componentRef.current,
@@ -16,7 +21,10 @@ export const ClientAllHistory = () => {
 
     const getClient = useCallback(async () => {
         try {
-            const data = await request(`/api/clients/${clientId}`, 'GET', null)
+            const data = await request(`/api/clients/${clientId}`, 'GET', null, 
+            {
+                Authorization: `Bearer ${auth.token}`
+            })
             setClient(data)
         } catch (e) {
         }
@@ -24,7 +32,10 @@ export const ClientAllHistory = () => {
 
     const getSections = useCallback(async () => {
         try {
-            const fetch = await request(`/api/section/${clientId}`, 'GET', null)
+            const fetch = await request(`/api/section/${clientId}`, 'GET', null,
+                {
+                    Authorization: `Bearer ${auth.token}`
+                })
             setSections(fetch)
         } catch (e) {
 

@@ -31,7 +31,6 @@ export const Sayt = () => {
 
     return (
         <div className="body">
-            <EditClient/>
             {/* <Particle />  */}
             <div className="header">
                 <h1>XALQ XIZMATI OLIY MAQSAD</h1>

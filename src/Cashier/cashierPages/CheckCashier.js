@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useParams } from 'react-router';
 import { useHttp } from '../hooks/http.hook';
@@ -6,6 +6,7 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Modal from 'react-modal';
 import './cashier.css'
+import { AuthContext } from '../context/AuthContext';
 
 const customStyles = {
     content: {
@@ -19,7 +20,7 @@ const customStyles = {
 };
 
 export const CheckCashier = () => {
-
+    const auth = useContext(AuthContext)
     const history = useHistory()
     const [modalIsOpen, setIsOpen] = useState(false);
 
@@ -46,7 +47,9 @@ export const CheckCashier = () => {
 
     const getClient = useCallback(async () => {
         try {
-            const fetch = await request(`/api/clients/${clientId}`, 'GET', null)
+            const fetch = await request(`/api/clients/${clientId}`, 'GET', null, {
+                Authorization: `Bearer ${auth.token}`
+            })
             setClient(fetch)
         } catch (e) {
 
@@ -55,7 +58,9 @@ export const CheckCashier = () => {
 
     const getAllSections = useCallback(async () => {
         try {
-            const fetch = await request(`/api/section/${clientId}`, 'GET', null)
+            const fetch = await request(`/api/section/${clientId}`, 'GET', null, {
+                Authorization: `Bearer ${auth.token}`
+            })
             let s = []
             fetch.map((section) => {
                 if (section.payment === "kutilmoqda") {
@@ -123,7 +128,9 @@ export const CheckCashier = () => {
 
     const patchPayments = useCallback(async (section) => {
         try {
-            const fetch = await request(`/api/section/${section._id}`, 'PATCH', { ...section })
+            const fetch = await request(`/api/section/${section._id}`, 'PATCH', { ...section }, {
+                Authorization: `Bearer ${auth.token}`
+            })
             console.log(fetch);
         } catch (e) {
 

@@ -1,19 +1,23 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { useHttp } from '../../hooks/http.hook'
 import 'react-toastify/dist/ReactToastify.css'
 import { Loader } from '../../components/Loader'
 import { toast } from 'react-toastify'
+import { AuthContext } from '../../context/AuthContext'
 
 toast.configure()
 export const EditOnlineClient = () => {
+    const auth = useContext(AuthContext)
     const clientId = useParams().id
     const { loading, request, error, clearError } = useHttp()
     const [form, setForm] = useState('')
 
     const getClient = useCallback(async () => {
         try {
-            const data = await request(`/api/clientonline/${clientId}`, 'GET', null)
+            const data = await request(`/api/clientonline/${clientId}`, 'GET', null, {
+                Authorization: `Bearer ${auth.token}`
+            })
             setForm({
                 firstname: data.firstname,
                 lastname: data.lastname,
@@ -94,8 +98,9 @@ export const EditOnlineClient = () => {
 
     const createHandler = async () => {
         try {
-            const data = await request(`/api/clientonline/edit/${clientId}`, 'PATCH', { ...form })
-            console.log(data);
+            const data = await request(`/api/clientonline/edit/${clientId}`, 'PATCH', { ...form }, {
+                Authorization: `Bearer ${auth.token}`
+            })
             history.push(`/reseption/onlineclients`)
         } catch (e) { }
     }
@@ -106,7 +111,7 @@ export const EditOnlineClient = () => {
             clearError()
         }
         if (form === '') {
-            // getClient()
+            getClient()
         }
 
     }, [error, clearError, getClient])

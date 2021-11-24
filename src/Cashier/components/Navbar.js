@@ -17,7 +17,7 @@ export const Navbar = () => {
     const logoutHandler = (event) => {
         event.preventDefault()
         auth.logout()
-        history.push('/cashier/auth')
+        history.push('/cashier')
     }
 
     const [show, setShow] = useState(true)

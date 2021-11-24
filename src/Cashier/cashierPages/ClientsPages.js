@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState, Component } from 'react'
+import React, { useCallback, useEffect, useState, Component, useContext } from 'react'
 import { Loader } from '../components/Loader'
 import { useHttp } from '../hooks/http.hook'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -6,6 +6,7 @@ import { faPenAlt, faSearch, faSort, faPrint, faClock, faCheck, faSyncAlt, faTim
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import DatePicker from "react-datepicker"
+import { AuthContext } from '../context/AuthContext'
 import './tableStyle.css'
 import Select from 'react-select'
 import ReactHTMLTableToExcel from 'react-html-to-excel'
@@ -15,6 +16,7 @@ const mongoose = require('mongoose')
 
 toast.configure()
 export const ClientsPages = () => {
+    const auth = useContext(AuthContext)
     const payment = ["to'langan", "to'lanmagan", "kutilmoqda"]
     const options = [
         { value: 'all', label: 'Barcha' },
@@ -36,7 +38,9 @@ export const ClientsPages = () => {
 
     const getClients = useCallback(async () => {
         try {
-            const fetch = await request('/api/clients/', 'GET', null)
+            const fetch = await request('/api/clients/', 'GET', null, {
+                Authorization: `Bearer ${auth.token}`
+            })
             setAllClients(fetch)
         } catch (e) {
 
@@ -45,7 +49,9 @@ export const ClientsPages = () => {
 
     const getAllSections = useCallback(async () => {
         try {
-            const fetch = await request('/api/section/', 'GET', null)
+            const fetch = await request('/api/section/', 'GET', null, {
+                Authorization: `Bearer ${auth.token}`
+            })
             setAllSections(fetch)
             setSections(fetch)
         } catch (e) {

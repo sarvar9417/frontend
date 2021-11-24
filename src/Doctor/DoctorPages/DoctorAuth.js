@@ -3,7 +3,7 @@ import { useHttp } from '../hooks/http.hook'
 import 'react-toastify/dist/ReactToastify.css'
 import { AuthContext } from '../context/AuthContext'
 import { toast } from 'react-toastify'
-import Reseption from './icons/reseption.png'
+// import Reseption from './icons/reseption.png'
 
 toast.configure()
 export const AuthPage = () => {
@@ -30,7 +30,7 @@ export const AuthPage = () => {
 
     const registerHandler = async () => {
         try {
-            const data = await request('/api/auth/reseption/register', 'POST', { ...form })
+            const data = await request('/api/auth/doctor/register', 'POST', { ...form })
             console.log('Data: ', data);
         } catch (e) {
 
@@ -39,7 +39,7 @@ export const AuthPage = () => {
 
     const loginHandler = async () => {
         try {
-            const data = await request('/api/auth/reseption/login', 'POST', { ...form })
+            const data = await request('/api/auth/doctor/login', 'POST', { ...form })
             auth.login(data.token, data.reseptionId)
         } catch (e) {
 
@@ -55,16 +55,15 @@ export const AuthPage = () => {
                         <div className="container">
                             <div className=" loginbox ">
                                 <div className="login-left">
-                                    <img className="w-100" src={Reseption} alt="Logo" />
+                                    {/* <img className="w-100" src={Reseption} alt="Logo" /> */}
                                 </div>
                                 <div className="login-right">
                                     <div className="login-right-wrap">
-                                        <h1>Qabul bo'limi</h1>
+                                        <h1>Shifokor bo'limi</h1>
                                         <div className="login-or">
                                             <span className="or-line"></span>
                                             <span className="span-or"></span>
                                         </div>
-                                        {/* <p className="account-subtitle">Mijozlarni ro'yxatga olish</p> */}
 
                                         <div className="form-group mb-3">
                                             <input
