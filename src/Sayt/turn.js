@@ -1,18 +1,24 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-export const turn = () => {
+export const Turn = () => {
+
+    const [time, setTime] = useState(new Date().toLocaleTimeString())
+    setInterval(() => {
+       setTime(new Date().toLocaleTimeString())
+    }, 1000)
+
     return (
-        <div>
-            <div className="container cc">
-                <div className="row">
-                    <div className="col-md-4">
-                        <h1>21.11.2021</h1>
+        <div className="body">
+            <div className="cc mb-5">
+                <div className="row text-white" style={{ backgroundColor: "#45D3D3"}}>
+                    <div className="col-md-4" >
+                        <h1 className="p-4">{new Date().toLocaleDateString()}</h1>
                     </div>
                     <div className="col-md-4" style={{ textAlign: "center" }}>
-                        <h1>MedicalCenter</h1>
+                        <h1 className="p-4">MedicalCenter</h1>
                     </div>
-                    <div className="col-md-4" style={{ textAlign: "right" }}>
-                        <h1>15:27:13</h1>
+                    <div  className="col-md-4" style={{ textAlign: "right" }}>
+                        <h1 className="p-4">{ time }</h1>
                     </div>
                 </div>
             </div>

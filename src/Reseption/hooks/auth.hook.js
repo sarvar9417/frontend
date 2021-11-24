@@ -1,31 +1,38 @@
 
 import { useCallback, useEffect, useState } from 'react'
 
-const storageName = 'userData'
+const storageName = 'reseptionData'
 export const useAuth = () => {
     const [token, setToken] = useState(null)
     const [reseptionId, setReseptionId] = useState(null)
-    const login = useCallback((jwtToken, id) => {
+    const [type, setType] = useState(null)
+
+    const login = useCallback((jwtToken, id, type) => {
         setToken(jwtToken)
         setReseptionId(id)
+        setType(type)
 
-        localStorage.setItem(storageName, JSON.stringify({ 
-            reseptionId: id, 
-            token: jwtToken }))
+        localStorage.setItem(storageName, JSON.stringify({
+            reseptionId: id,
+            token: jwtToken,
+            type: type,
+        }))
     }, [])
 
     const logout = useCallback(() => {
         setToken(null)
         setReseptionId(null)
+        setType(null)
         localStorage.removeItem(storageName)
     }, [])
 
     useEffect(() => {
         const data = JSON.parse(localStorage.getItem(storageName))
         if (data && data.token) {
-            login(data.token, data.reseptionId)
+            login(data.token, data.reseptionId, data.type)
         }
     }, [login])
 
-    return { login, logout, token, reseptionId }
+    console.log(type);
+    return { login, logout, token, reseptionId, type }
 }

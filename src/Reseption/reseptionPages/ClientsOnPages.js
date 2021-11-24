@@ -1,8 +1,8 @@
-import React, { useCallback, useEffect, useState, Component } from 'react'
+import React, { useCallback, useEffect, useState, Component, useContext } from 'react'
 import { Loader } from '../components/Loader'
 import { useHttp } from '../hooks/http.hook'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPenAlt, faSearch, faSort, faPrint, faTimesCircle, faCheck } from '@fortawesome/free-solid-svg-icons'
+import { faPenAlt, faSearch, faSort, faClock, faTimesCircle, faCheck } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import DatePicker from "react-datepicker"
@@ -11,22 +11,25 @@ import Select from 'react-select'
 import ReactHTMLTableToExcel from 'react-html-to-excel'
 
 import "react-datepicker/dist/react-datepicker.css"
+import { AuthContext } from '../context/AuthContext'
 const mongoose = require('mongoose')
 
 toast.configure()
 export const ClientsOnPages = () => {
-
+    //Avtorizatsiyani olish
+    const auth = useContext(AuthContext)
     const options = [
         { value: 'all', label: 'Barcha' },
         { value: 'offline', label: 'Offline' },
         { value: 'online', label: 'Online' }
     ]
+    const payment = ["to'langan", "to'lanmagan", "kutilmoqda"]
 
     let k = 0
     const [startDate, setStartDate] = useState(new Date())
     const [endDate, setEndDate] = useState(new Date())
     const [born, setBorn] = useState('')
-    const { loading, request } = useHttp()
+    const { loading, request, error, clearError } = useHttp()
     const [clients, setClients] = useState([])
     const [sections, setSections] = useState([])
     const [AllSections, setAllSections] = useState([])
@@ -35,34 +38,44 @@ export const ClientsOnPages = () => {
 
     const getClients = useCallback(async () => {
         try {
-            const fetch = await request('/api/clients/', 'GET', null)
+            const fetch = await request('/api/clients', 'GET', null, {
+                Authorization: `Bearer ${auth.token}`
+            })
             setAllClients(fetch)
         } catch (e) {
 
         }
-    }, [request])
+    }, [request, auth])
 
     const positionUpdate = useCallback(async (id, positionSection) => {
         try {
-            const fetch = await request(`/api/section/${id}`, 'PUT', { position: positionSection })
+            const fetch = await request(`/api/section/${id}`, 'PUT', { position: positionSection }, {
+                Authorization: `Bearer ${auth.token}`
+            })
             getAllSections()
             getClients()
         } catch (e) {
 
         }
-    }, [request])
+    }, [request, auth])
 
     const getAllSections = useCallback(async () => {
         try {
-            const fetch = await request('/api/section/', 'GET', null)
+            const fetch = await request('/api/section', 'GET', null, {
+                Authorization: `Bearer ${auth.token}`
+            })
             setAllSections(fetch)
             setSections(fetch)
         } catch (e) {
 
         }
-    }, [request])
+    }, [request, auth])
 
     useEffect(() => {
+        if (error) {
+            notify(error)
+            clearError()
+        }
         getClients()
         getAllSections()
     }, [getClients, getAllSections])
@@ -90,6 +103,11 @@ export const ClientsOnPages = () => {
             setSections(c)
         }
     }
+
+    //Xatoliklar chiqaruvi
+    const notify = (e) => {
+        toast.error(e);
+    };
 
     const searchId = () => {
         let c = []
@@ -234,8 +252,32 @@ export const ClientsOnPages = () => {
                                             <td className="phone">+{client.phone}</td>
                                             <td className="section"> <Link to={`/reseption/clienthistory/${section._id}`} > {section.name} </Link></td>
                                             <td className="edit"> <Link to={`/reseption/edit/${client._id}`} > <FontAwesomeIcon icon={faPenAlt} /> </Link>  </td>
-                                            <td className={section.payment === "to'langan" ? "text-success prices" : "text-danger prices "} >
-                                                {section.payment === "to'langan" ? <FontAwesomeIcon icon={faCheck} /> : <FontAwesomeIcon icon={faTimesCircle} />}
+                                            <td className={
+                                                payment.map((pay) => {
+                                                    if (pay === "to'langan" && section.payment === "to'langan") {
+                                                        return " text-success prices text-center"
+                                                    }
+                                                    if (pay === "to'lanmagan" && section.payment === "to'lanmagan") {
+                                                        return " text-danger prices text-center"
+                                                    }
+                                                    if (pay === "kutilmoqda" && section.payment === "kutilmoqda") {
+                                                        return (" text-warning prices text-center")
+                                                    }
+                                                })
+                                            } >
+                                                {
+                                                    payment.map((pay) => {
+                                                        if (pay === "to'langan" && section.payment === "to'langan") {
+                                                            return (<FontAwesomeIcon icon={faCheck} />)
+                                                        }
+                                                        if (pay === "to'lanmagan" && section.payment === "to'lanmagan") {
+                                                            return (<FontAwesomeIcon icon={faTimesCircle} />)
+                                                        }
+                                                        if (pay === "kutilmoqda" && section.payment === "kutilmoqda") {
+                                                            return (<FontAwesomeIcon icon={faClock} />)
+                                                        }
+                                                    })
+                                                }
                                             </td>
                                             <td className="position" >{
                                                 section.position === "kutilmoqda" ?

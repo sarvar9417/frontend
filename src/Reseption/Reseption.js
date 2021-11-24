@@ -6,12 +6,13 @@ import { AuthContext } from './context/AuthContext'
 import { Navbar } from './components/Navbar'
 
 export const Reseption = () => {
-    const { login, token, logout, reseptionId } = useAuth()
-    const isAuthenticated = true
-    // const isAuthenticated = !!token
-    const reseptionRouter = ReseptionRoutes(isAuthenticated)
+    const { login, token, logout, reseptionId, type } = useAuth()
+    console.log(token);
+    // const isAuthenticated = true
+    const isAuthenticated = !!token
+    const reseptionRouter = ReseptionRoutes(isAuthenticated, type)
     return (
-        <AuthContext.Provider value={{ login, logout, token, reseptionId, isAuthenticated }} >
+        <AuthContext.Provider value={{ login, logout, token, reseptionId, isAuthenticated, type }} >
             <Router>
                 {isAuthenticated && <Navbar />}
                 {reseptionRouter}

@@ -7,8 +7,8 @@ import { Navbar } from './components/Navbar'
 
 export const Cashier = () => {
     const { login, token, logout, cashierId } = useAuth()
-    const isAuthenticated = true
-    // const isAuthenticated = !!token
+    // const isAuthenticated = true
+    const isAuthenticated = !!token
     const cashierRouter = CashierRoutes(isAuthenticated)
     return (
         <AuthContext.Provider value={{ login, logout, token, cashierId, isAuthenticated }} >

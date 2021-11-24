@@ -25,67 +25,6 @@ export const Home = () => {
     return (
         <div className="container">
             <CreateClient />
-            {/* <div className="row">
-                <div className="col-md-6">
-                    <Link to="/reseption/qabul" >
-                        <div className="weather-card one">
-                            <div className="top">
-                                <div className="wrapper">
-                                    <h3 className="heading">{hour < 10 ? '0' + hour : hour}:{min < 10 ? '0' + min : min}:{sec < 10 ? '0' + sec : sec}</h3>
-                                    <p className="temp">
-                                        <span className="temp-value" style={{ fontSize: "100px" }} >
-                                            {day < 10 ? '0' + day : day}
-                                        </span>
-                                        <span className="location d-block">
-                                            {monthNames[month]}
-                                        </span>
-                                        <span className="temp-value">{year}</span>
-                                    </p>
-                                </div>
-                            </div>
-                            <div className="bottom">
-                                <div className="wrapper">
-                                    <ul className="forecast">
-                                        <li className="active">
-                                            <span className="date">MIJOZLARNI OFFLINE QABUL QILISH</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </Link>
-                </div>
-
-                <div className="col-md-6">
-                    <Link to="/reseption/onlineqabul" >
-                        <div className="weather-card one">
-                            <div className="top">
-                                <div className="wrapper">
-                                    <h3 className="heading">{hour < 10 ? '0' + hour : hour}:{min < 10 ? '0' + min : min}:{sec < 10 ? '0' + sec : sec}</h3>
-                                    <p className="temp">
-                                        <span className="temp-value" style={{ fontSize: "100px" }} >
-                                            {day < 10 ? '0' + day : day}
-                                        </span>
-                                        <span className="location d-block">
-                                            {monthNames[month]}
-                                        </span>
-                                        <span className="temp-value">{year}</span>
-                                    </p>
-                                </div>
-                            </div>
-                            <div className="bottom">
-                                <div className="wrapper">
-                                    <ul className="forecast">
-                                        <li className="active">
-                                            <span className="date">MIJOZLARNI ONLINE QABUL QILISH</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </Link>
-                </div>
-            </div> */}
         </div>
 
     )

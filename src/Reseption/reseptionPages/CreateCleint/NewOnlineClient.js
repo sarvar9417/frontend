@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useHttp } from '../../hooks/http.hook'
 import 'react-toastify/dist/ReactToastify.css'
@@ -8,12 +8,15 @@ import Select from 'react-select'
 import makeAnimated from 'react-select/animated'
 import { CheckClentData } from './CheckClentData'
 import '../radio.css'
+import { AuthContext } from '../../context/AuthContext'
 
 const mongoose = require("mongoose")
 const animatedComponents = makeAnimated()
 
 toast.configure()
 export const NewOnlineClient = () => {
+    //Avtorizatsiyani olish
+    const auth = useContext(AuthContext)
     let s = []
     const { loading, request, error, clearError } = useHttp()
     const [turns, seTurns] = useState([])
@@ -65,6 +68,7 @@ export const NewOnlineClient = () => {
             s.push({
                 name: section.value,
                 price: 0,
+                priceCashier: 0,
                 comment: " ",
                 summary: " ",
                 done: "tasdiqlanmagan",
@@ -86,12 +90,16 @@ export const NewOnlineClient = () => {
 
     const allClients = useCallback(async () => {
         try {
-            const fetch = await request('/api/clients/', 'GET', null)
-            const sec = await request('/api/section/', 'GET', null)
+            const fetch = await request('/api/clients', 'GET', null, {
+                Authorization: `Bearer ${auth.token}`
+            })
+            const sec = await request('/api/section', 'GET', null, {
+                Authorization: `Bearer ${auth.token}`
+            })
             seTurns(sec)
             client.id = fetch.length + 1000001
         } catch (e) { }
-    }, [request])
+    }, [request, auth])
 
 
     const checkData = () => {
@@ -103,7 +111,9 @@ export const NewOnlineClient = () => {
 
     const createHandler = async () => {
         try {
-            const data = await request('/api/clients/register', 'POST', { ...client })
+            const data = await request('/api/clients/register', 'POST', { ...client }, {
+                Authorization: `Bearer ${auth.token}`
+            })
             createAllSections(data._id)
             // history.push(`/reseption/reciept/${data._id}`)
         } catch (e) { }
@@ -118,7 +128,9 @@ export const NewOnlineClient = () => {
 
     const create = async (id, section) => {
         try {
-            const data = await request(`/api/section/register/${id}`, 'POST', { ...section })
+            const data = await request(`/api/section/register/${id}`, 'POST', { ...section }, {
+                Authorization: `Bearer ${auth.token}`
+            })
             console.log(data);
         } catch (e) { }
     }
@@ -127,13 +139,6 @@ export const NewOnlineClient = () => {
         allClients()
     }, [allClients])
 
-
-    useEffect(() => {
-        if (error) {
-            notify(error)
-            clearError()
-        }
-    }, [error, clearError])
 
     const checkTurn = (turn, name) => {
         if (
@@ -177,8 +182,8 @@ export const NewOnlineClient = () => {
                     <label className="labels">Ism</label>
                 </div>
             </div>
-            <div className="row" style={{padding:"15px 0"}}>
-                <div className="col-md-6 input_box"  data-aos="fade-right">
+            <div className="row" style={{ padding: "15px 0" }}>
+                <div className="col-md-6 input_box" data-aos="fade-right">
                     <input
                         onChange={changeHandlar}
                         name="fathername"
@@ -195,7 +200,7 @@ export const NewOnlineClient = () => {
                         name='born'
                         className="form-control inp"
                         placeholder=""
-                        style={{color:"#999"}}
+                        style={{ color: "#999" }}
                     />
                     <label className="labels">Tug'ilgan kuni</label>
                 </div>
@@ -205,42 +210,42 @@ export const NewOnlineClient = () => {
                     <div className="form-group">
                         {/* <label className="text-muted mandatory d-block">Jinsi</label> */}
                         <div className="btn-group" data-toggle="buttons">
-                        <div className="wrapper">
-                <input
-                  className="input"
-                  id="erkak"
-                  onChange={changeHandlar}
-                  name="gender"
-                  type="radio"
-                  defaultValue="man"
-                />
-                <label
-                  className={client.gender === "man" ? "label clabel" : "label"}
-                  for="erkak"
-                >
-                  Erkak
-                </label>
-                <input
-                  className="input"
-                  type="radio"
-                  id="ayol"
-                  onChange={changeHandlar}
-                  name="gender"
-                  defaultValue="woman"
-                />
-                <label
-                  className={
-                    client.gender === "woman" ? "label clabel" : "label"
-                  }
-                  for="ayol"
-                >
-                  Ayol
-                </label>
-              </div>
+                            <div className="wrapper">
+                                <input
+                                    className="input"
+                                    id="erkak"
+                                    onChange={changeHandlar}
+                                    name="gender"
+                                    type="radio"
+                                    defaultValue="man"
+                                />
+                                <label
+                                    className={client.gender === "man" ? "label clabel" : "label"}
+                                    for="erkak"
+                                >
+                                    Erkak
+                                </label>
+                                <input
+                                    className="input"
+                                    type="radio"
+                                    id="ayol"
+                                    onChange={changeHandlar}
+                                    name="gender"
+                                    defaultValue="woman"
+                                />
+                                <label
+                                    className={
+                                        client.gender === "woman" ? "label clabel" : "label"
+                                    }
+                                    for="ayol"
+                                >
+                                    Ayol
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div className="col-md-6 input_box" data-aos="fade-left"> 
+                <div className="col-md-6 input_box" data-aos="fade-left">
                     <input
                         onChange={changeHandlar}
                         type="number"
@@ -256,7 +261,7 @@ export const NewOnlineClient = () => {
             <hr className="form-control" />
 
             <div className="row" >
-                <div className="col-md-12"  data-aos="zoom-out" >
+                <div className="col-md-12" data-aos="zoom-out" >
                     <label className="labels">qayta tanlaganda narx va vaqt o'chib ketadi
                     </label>
                     <Select
@@ -278,7 +283,7 @@ export const NewOnlineClient = () => {
                         return (
                             <>
                                 <div className="col-md-4 col-sm-6" >
-                                    <label className="text-muted mandatory"></label>
+                                    <label className=""></label>
                                     <input
                                         defaultValue={section.price}
                                         onChange={createSections}
@@ -301,7 +306,7 @@ export const NewOnlineClient = () => {
                                     />
                                 </div> */}
                                 <div className="col-md-4 col-sm-6">
-                                    <label className="labels"> Kelish vaqti
+                                    <label className=""> Kelish vaqti
                                     </label>
                                     <input
                                         id={key}
@@ -312,7 +317,7 @@ export const NewOnlineClient = () => {
                                     />
                                 </div>
                                 <div className="col-md-4 col-sm-6">
-                                    <label className="labels"></label>
+                                    <label className=""></label>
                                     <input
                                         id={key}
                                         value={section.bronTime}

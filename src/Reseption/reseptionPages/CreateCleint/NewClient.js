@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useHttp } from "../../hooks/http.hook";
 import "react-toastify/dist/ReactToastify.css";
@@ -7,20 +7,36 @@ import { toast } from "react-toastify";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
 import { CheckClentData } from "./CheckClentData";
+import { AuthContext } from "../../context/AuthContext";
 import '../radio.css'
 const mongoose = require("mongoose");
 const animatedComponents = makeAnimated();
 
 toast.configure();
 export const NewClient = () => {
-  let s = [];
+  //Avtorizatsiyani olish
+  const auth = useContext(AuthContext)
+  let s = []
+
+
+  // So'rov kutish va xatoliklarni olish
   const { loading, request, error, clearError } = useHttp();
+
+  //Navbatni ro'yxatga olish
   const [turns, seTurns] = useState([]);
-  const [sections, setSections] = useState([]);
+
+  //Registratsiyadan o'tgan bo'limlarni olish
+  const [sections, setSections] = useState([])
+
+  //Xatoliklar chiqaruvi
   const notify = (e) => {
     toast.error(e);
   };
+
+  //Boshqa sahifaga yo'naltirish yuklanishi
   const history = useHistory();
+
+  // Mijoz sxemasi
   const [client, setClient] = useState({
     firstname: "",
     lastname: "",
@@ -30,6 +46,7 @@ export const NewClient = () => {
     id: 0,
     born: "",
   });
+
 
   const changeHandlar = (event) => {
     setClient({ ...client, [event.target.name]: event.target.value });
@@ -51,6 +68,7 @@ export const NewClient = () => {
       s.push({
         name: section.value,
         price: 0,
+        priceCashier: 0,
         comment: " ",
         summary: " ",
         done: "tasdiqlanmagan",
@@ -84,12 +102,16 @@ export const NewClient = () => {
 
   const allClients = useCallback(async () => {
     try {
-      const fetch = await request("/api/clients/", "GET", null);
-      const sec = await request("/api/section/", "GET", null);
+      const fetch = await request("/api/clients", "GET", null, {
+        Authorization: `Bearer ${auth.token}`
+      })
+      const sec = await request("/api/section", "GET", null, {
+        Authorization: `Bearer ${auth.token}`
+      })
       seTurns(sec);
       client.id = fetch.length + 1000001;
-    } catch (e) {}
-  }, [request]);
+    } catch (e) { }
+  }, [request, auth]);
 
   const checkData = () => {
     if (CheckClentData(client)) {
@@ -100,49 +122,44 @@ export const NewClient = () => {
 
   const createHandler = async () => {
     try {
-      const data = await request("/api/clients/register", "POST", {
-        ...client,
+      const data = await request("/api/clients/register", "POST", { ...client }, {
+        Authorization: `Bearer ${auth.token}`
       });
       createAllSections(data._id);
       history.push(`/reseption/reciept/${data._id}`)
-    } catch (e) {}
+    } catch (e) { }
   };
 
   const createAllSections = (id) => {
     sections.map((section) => {
-      create(id, section);
-    });
-    history.push(`/reseption/reciept/${id}`);
-  };
+      create(id, section)
+    })
+    history.push(`/reseption/reciept/${id}`)
+  }
 
   const create = async (id, section) => {
     try {
-      const data = await request(`/api/section/register/${id}`, "POST", {
-        ...section,
+      const data = await request(`/api/section/register/${id}`, "POST", { ...section }, {
+        Authorization: `Bearer ${auth.token}`
       });
       console.log(data);
-    } catch (e) {}
+    } catch (e) { }
   };
 
-  useEffect(() => {
-    allClients();
-  }, [allClients]);
+
 
   useEffect(() => {
-    if (error) {
-      notify(error);
-      clearError();
-    }
-  }, [error, clearError]);
+    allClients()
+  }, [allClients])
 
   const checkTurn = (turn, name) => {
     if (
       mongoose.Types.ObjectId(turn._id).getTimestamp().getFullYear() ===
-        new Date().getFullYear() &&
+      new Date().getFullYear() &&
       mongoose.Types.ObjectId(turn._id).getTimestamp().getMonth() ===
-        new Date().getMonth() &&
+      new Date().getMonth() &&
       mongoose.Types.ObjectId(turn._id).getTimestamp().getDate() ===
-        new Date().getDate() &&
+      new Date().getDate() &&
       turn.name === name
     )
       return true;
@@ -182,7 +199,7 @@ export const NewClient = () => {
           <label className="labels">Ism</label>
         </div>
       </div>
-      <div className="row" style={{padding:"15px 0"}}>
+      <div className="row" style={{ padding: "15px 0" }}>
         <div className="col-md-6 input_box" data-aos="fade-right">
           <input
             onChange={changeHandlar}
@@ -200,7 +217,7 @@ export const NewClient = () => {
             name="born"
             className="form-control inp"
             placeholder=""
-            style={{color:"#999"}}
+            style={{ color: "#999" }}
           />
           <label className="labels">Tug'ilgan sanasi</label>
         </div>
@@ -210,7 +227,7 @@ export const NewClient = () => {
           <div className="form-group">
             {/* <label className="text-muted mandatory d-block">Jinsi</label> */}
             <div className="btn-group" data-toggle="buttons">
-            <div className="wrapper">
+              <div className="wrapper">
                 <input
                   className="input"
                   id="erkak"
@@ -293,7 +310,7 @@ export const NewClient = () => {
                 />
               </div>
               <div className="col-5">
-                <label className="text-muted mandatory">{} navbati</label>
+                <label className="text-muted mandatory">{ } navbati</label>
                 <input
                   // onChange={changeHandlar}
                   type="number"

@@ -14,7 +14,7 @@ import { ClientHistory } from './reseptionPages/CreateCleint/ClientHistory'
 import { ClientAllHistory } from './reseptionPages/CreateCleint/ClientAllHistory'
 
 export const ReseptionRoutes = (isAuthenticated) => {
-    if (isAuthenticated) {
+    if (isAuthenticated ) {
         return (
             <div style={{ marginTop: "90px" }} >
                 <Switch >

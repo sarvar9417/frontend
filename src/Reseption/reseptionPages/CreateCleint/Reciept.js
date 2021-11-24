@@ -1,10 +1,13 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useReactToPrint } from 'react-to-print'
 import { Loader } from '../../components/Loader'
+import { AuthContext } from '../../context/AuthContext'
 import { useHttp } from '../../hooks/http.hook'
 
 export const Reciept = () => {
+    //Avtorizatsiyani olish
+    const auth = useContext(AuthContext)
     const componentRef = useRef()
     const handlePrint = useReactToPrint({
         content: () => componentRef.current,
@@ -20,22 +23,25 @@ export const Reciept = () => {
 
     const getSections = useCallback(async () => {
         try {
-            const data = await request(`/api/section/${clientId}`, 'GET', null)
+            const data = await request(`/api/section/reseption/${clientId}`, 'GET', null, {
+                Authorization: `Bearer ${auth.token}`
+            })
             console.log(data);
             setSections(data)
         } catch (e) {
         }
-    }, [request, clientId])
+    }, [request, clientId, auth])
 
     const getClient = useCallback(async () => {
         try {
-            const data = await request(`/api/clients/${clientId}`, 'GET', null)
-            console.log(data);
+            const data = await request(`/api/clients/reseption/${clientId}`, 'GET', null, {
+                Authorization: `Bearer ${auth.token}`
+            })
             setClient(data)
         } catch (e) {
         }
-    }, [request, clientId])
-    console.log(sections[0] === 0);
+    }, [request, clientId, auth])
+
     useEffect(() => {
 
         if (sections[0] === 0) {
@@ -66,15 +72,15 @@ export const Reciept = () => {
                             <tbody>
                                 <tr>
                                     <td>
-                                        <ul className="list-unstyled mb0">
-                                            <li style={{ fontSize: "10pt", fontFamily: "times" }}><strong style={{ fontSize: "10pt", fontFamily: "times" }} >"DS ONE PROVIDER" MCHJ</strong></li>
+                                        <ul className="list-unstyled mb0 text-start m-3">
+                                            <li className="" style={{ fontSize: "10pt", fontFamily: "times" }}><strong style={{ fontSize: "10pt", fontFamily: "times" }} >"DS ONE PROVIDER" MCHJ</strong></li>
                                             <li style={{ fontSize: "10pt", fontFamily: "times" }}><strong style={{ fontSize: "10pt", fontFamily: "times" }}>Manzil:</strong> Navoiy shahar Zarapetyan ko'chasi</li>
                                             <li style={{ fontSize: "10pt", fontFamily: "times" }}><strong style={{ fontSize: "10pt", fontFamily: "times" }}>Bank:</strong> AKB "TURONBANK" Navoiy filiali</li>
                                             <li style={{ fontSize: "10pt", fontFamily: "times" }}> <strong style={{ fontSize: "10pt", fontFamily: "times" }}>MFO:</strong> 00200</li>
                                         </ul>
                                     </td>
-                                    <td className="text-center">
-                                        <ul className="list-unstyled text-right">
+                                    <td className="">
+                                        <ul className="list-unstyled text-right m-3">
                                             <li style={{ fontFamily: "times" }}> <h5 style={{ textAlign: "right", fontSize: "10pt" }}> {today}</h5> </li>
                                             <li style={{ textAlign: "right", fontSize: "10pt" }}><strong style={{ fontSize: "10pt", fontFamily: "times" }}>INN:</strong> 123456789</li>
                                             <li style={{ textAlign: "right", fontSize: "10pt" }}><strong style={{ fontSize: "10pt", fontFamily: "times" }}>Hisob raqam:</strong> 1234567890123456</li>
@@ -149,14 +155,14 @@ export const Reciept = () => {
                             <tbody>
                                 <tr>
                                     <td>
-                                        <ul className="list-unstyled mb0">
+                                        <ul className="list-unstyled m-3 text-start">
                                             <li style={{ fontSize: "10pt", fontFamily: "times" }}><strong style={{ fontSize: "10pt", fontFamily: "times" }} >"DS ONE PROVIDER" MCHJ</strong></li>
                                             <li style={{ fontSize: "10pt", fontFamily: "times" }}><strong style={{ fontSize: "10pt", fontFamily: "times" }}>Manzil:</strong> Navoiy shahar Zarapetyan ko'chasi</li>
                                             <li style={{ fontSize: "10pt", fontFamily: "times" }}><strong style={{ fontSize: "10pt", fontFamily: "times" }}>Bank:</strong> AKB "TURONBANK" Navoiy filiali</li>
                                             <li style={{ fontSize: "10pt", fontFamily: "times" }}> <strong style={{ fontSize: "10pt", fontFamily: "times" }}>MFO:</strong> 00200</li>
                                         </ul>
                                     </td>
-                                    <td className="text-center">
+                                    <td className="text-center m-3">
                                         <ul className="list-unstyled text-right">
                                             <li style={{ fontFamily: "times" }}> <h5 style={{ textAlign: "right", fontSize: "10pt" }}> {today}</h5> </li>
                                             <li style={{ textAlign: "right", fontSize: "10pt" }}><strong style={{ fontSize: "10pt", fontFamily: "times" }}>INN:</strong> 123456789</li>

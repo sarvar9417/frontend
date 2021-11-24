@@ -6,6 +6,7 @@
 .body {
     background-color: #eee;
     padding-bottom: 200px;
+    height: 100vh;
 }
 
 .header {

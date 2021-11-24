@@ -3,6 +3,7 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 // import { CreateClient } from './cashierPages/CreateClient'
 // import { ClientsPages } from './cashierPages/ClientsPages'
 import { AuthPage } from './cashierPages/CashierAuth'
+import { CreateCheck } from './cashierPages/CreateCheck'
 import { Home } from './cashierPages/Home'
 // import { EditClient } from './cashierPages/EditClient'
 // import { CreateCost } from './cashierPages/CreateCost'
@@ -21,37 +22,10 @@ export const CashierRoutes = (isAuthenticated) => {
                     <Route path="/cashier" exact >
                         <Home />
                     </Route>
-                    {/* <Route path="/cashier/qabul"  >
-                        <CreateClient />
+                    <Route path="/cashier/pay/:id" >
+                        <CreateCheck />
                     </Route>
-                    <Route path="/cashier/onlineqabul"  >
-                        <CreateOnlineClient />
-                    </Route>
-                    <Route path="/cashier/clients" >
-                        <ClientsPages />
-                    </Route>
-                    <Route path="/cashier/onlineclients" >
-                        <ClientsOnPages />
-                    </Route>
-                    <Route path="/cashier/reciept/:id" >
-                        <Reciept />
-                    </Route>
-                    <Route path="/cashier/edit/:id" >
-                        <EditClient />
-                    </Route>z
-                    <Route path="/cashier/cost" >
-                        <CreateCost />
-                    </Route>
-                    <Route path="/cashier/costs" >
-                        <CostsPages />
-                    </Route>
-                    <Route path="/cashier/clienthistory/:id" >
-                        <ClientHistory />
-                    </Route>
-                    <Route path="/cashier/clientallhistory/:id" >
-                        <ClientAllHistory />
-                    </Route>
-                    <Redirect to="/cashier" /> */}
+                    
                 </Switch>
             </div>
         )

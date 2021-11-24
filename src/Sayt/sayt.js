@@ -92,7 +92,7 @@ export const Sayt = () => {
 
                     </article>
                 </Link>
-                <Link data-aos="fade-left">
+                <Link to="/doctor" data-aos="fade-left">
                     <article className="link blue">
                         <div className="info">
                             <h2>DOCTOR</h2>
@@ -113,9 +113,9 @@ export const Sayt = () => {
 
             </div>
 
-            <div className="d-inline-block" style={{ right: "0", bottom: "0", position: "fixed" }}>
-                <Link className="card shadow bg-body rounded p-3 cards" to="/turn" style={{ color: "#38c172" }}>
-                    <FontAwesomeIcon icon={faClock} className="fa-5x" />
+            <div className="d-inline-block rounded-circle" style={{ right: "30px", bottom: "30px", position: "fixed" }}>
+                <Link className="card shadow bg-body rounded p-3 cards rounded-circle" to="/turn" style={{ color: "#38c172" }}>
+                    <FontAwesomeIcon icon={faClock} className="fa-5x rounded-circle" />
                 </Link>
             </div>
         </div>
