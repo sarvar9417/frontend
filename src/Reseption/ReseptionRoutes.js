@@ -38,7 +38,7 @@ export const ReseptionRoutes = (isAuthenticated) => {
                     </Route>
                     <Route path="/reseption/edit/:id" >
                         <EditClient />
-                    </Route>z
+                    </Route>
                     <Route path="/reseption/cost" >
                         <CreateCost />
                     </Route>

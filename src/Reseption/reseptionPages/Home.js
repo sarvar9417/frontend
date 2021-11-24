@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import "react-datepicker/dist/react-datepicker.css";
 import { CreateClient } from './CreateClient';
+import { EditClient } from './EditClient';
 
 export const Home = () => {
     const monthNames = ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentabr", "Oktabr", "Noyabr", "Dekabr"

@@ -66,7 +66,7 @@ export const EditClient = () => {
             clearError()
         }
         if (form === '') {
-            getClient()
+            // getClient()
         }
 
     }, [error, clearError, getClient, form])

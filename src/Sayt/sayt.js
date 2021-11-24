@@ -11,6 +11,7 @@ import Cashier from './icons/cashier.png'
 import Doctor from './icons/doctor.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClock } from '@fortawesome/free-solid-svg-icons'
+import { EditClient } from '../Reseption/reseptionPages/EditClient'
 
 export const Sayt = () => {
 
@@ -30,6 +31,7 @@ export const Sayt = () => {
 
     return (
         <div className="body">
+            <EditClient/>
             {/* <Particle />  */}
             <div className="header">
                 <h1>XALQ XIZMATI OLIY MAQSAD</h1>

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useHttp } from "../../hooks/http.hook";
 import "react-toastify/dist/ReactToastify.css";
@@ -6,6 +6,7 @@ import { Loader } from "../../components/Loader";
 import { toast } from "react-toastify";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
+import { AuthContext } from "../../context/AuthContext";
 
 // import { CheckClentData } from './CheckClentData'
 const mongoose = require("mongoose");
@@ -13,6 +14,8 @@ const animatedComponents = makeAnimated();
 
 toast.configure();
 export const OldClient = () => {
+
+  const auth = useContext(AuthContext)
   let s = [];
   const { loading, request, error, clearError } = useHttp();
   const [turns, seTurns] = useState([]);
@@ -82,16 +85,20 @@ export const OldClient = () => {
 
   const allClients = useCallback(async () => {
     try {
-      const fetch = await request("/api/clients/", "GET", null);
+      const fetch = await request("/api/clients/", "GET", null, {
+        Authorization: `Bearer ${auth.token}`
+      });
       setClients(fetch);
-    } catch (e) {}
+    } catch (e) { }
   }, [request]);
 
   const allTurns = useCallback(async () => {
     try {
-      const sec = await request("/api/section/", "GET", null);
+      const sec = await request("/api/section/", "GET", null, {
+        Authorization: `Bearer ${auth.token}`
+      });
       seTurns(sec);
-    } catch (e) {}
+    } catch (e) { }
   }, [request]);
 
   const searchClient = (id) => {
@@ -111,13 +118,11 @@ export const OldClient = () => {
 
   const create = async (section) => {
     try {
-      const data = await request(
-        `/api/section/register/${client._id}`,
-        "POST",
-        { ...section }
-      );
+      const data = await request(`/api/section/register/${client._id}`, "POST", { ...section }, {
+        Authorization: `Bearer ${auth.token}`
+      });
       console.log(data);
-    } catch (e) {}
+    } catch (e) { }
   };
 
   useEffect(() => {
@@ -139,11 +144,11 @@ export const OldClient = () => {
   const checkTurn = (turn, name) => {
     if (
       mongoose.Types.ObjectId(turn._id).getTimestamp().getFullYear() ===
-        new Date().getFullYear() &&
+      new Date().getFullYear() &&
       mongoose.Types.ObjectId(turn._id).getTimestamp().getMonth() ===
-        new Date().getMonth() &&
+      new Date().getMonth() &&
       mongoose.Types.ObjectId(turn._id).getTimestamp().getDate() ===
-        new Date().getDate() &&
+      new Date().getDate() &&
       turn.name === name
     )
       return true;
@@ -188,7 +193,7 @@ export const OldClient = () => {
           <label className="labels">Telefon raqami</label>
         </div>
       </div>
-      <div className="row" style={{padding:"15px 0"}}>
+      <div className="row" style={{ padding: "15px 0" }}>
         <div className="col-md-6 input_box" data-aos="fade-right">
           <input
             defaultValue={client.lastname}
@@ -197,9 +202,9 @@ export const OldClient = () => {
             type="text"
             className="form-control inp"
             placeholder=""
-            style={{background:"#fff"}}
+            style={{ background: "#fff" }}
           />
-          <label className="labels" style={{top:"-7px",fontSize:"12px",fontWeight:"500"}}>Familiya</label>
+          <label className="labels" style={{ top: "-7px", fontSize: "12px", fontWeight: "500" }}>Familiya</label>
         </div>
         <div className="col-md-6 input_box" data-aos="fade-left">
           <input
@@ -209,9 +214,9 @@ export const OldClient = () => {
             type="text"
             className="form-control inp"
             placeholder=""
-            style={{background:"#fff"}}
+            style={{ background: "#fff" }}
           />
-          <label className="labels"  style={{top:"-7px",fontSize:"12px",fontWeight:"500"}}>Ism</label>
+          <label className="labels" style={{ top: "-7px", fontSize: "12px", fontWeight: "500" }}>Ism</label>
         </div>
       </div>
       <div className="row">
@@ -223,9 +228,9 @@ export const OldClient = () => {
             type="text"
             className="form-control inp"
             placeholder=""
-            style={{background:"#fff"}}
+            style={{ background: "#fff" }}
           />
-          <label className="labels" style={{top:"-7px",fontSize:"12px",fontWeight:"500"}}>Otasining ismi</label>
+          <label className="labels" style={{ top: "-7px", fontSize: "12px", fontWeight: "500" }}>Otasining ismi</label>
         </div>
         <div className="col-md-6 input_box" data-aos="fade-left">
           <input
@@ -245,9 +250,9 @@ export const OldClient = () => {
             name="born"
             className="form-control inp"
             placeholder=""
-            style={{background:"#fff",color:"#999"}}
+            style={{ background: "#fff", color: "#999" }}
           />
-          <label className="labels" style={{top:"-7px",fontSize:"12px",fontWeight:"500"}}>Tug'ilgan sanasi</label>
+          <label className="labels" style={{ top: "-7px", fontSize: "12px", fontWeight: "500" }}>Tug'ilgan sanasi</label>
         </div>
       </div>
       <div className="row"></div>
@@ -286,7 +291,7 @@ export const OldClient = () => {
                 />
               </div>
               <div className="col-5">
-                <label className="text-muted mandatory">{} navbati</label>
+                <label className="text-muted mandatory">{ } navbati</label>
                 <input
                   // onChange={changeHandlar}
                   type="number"

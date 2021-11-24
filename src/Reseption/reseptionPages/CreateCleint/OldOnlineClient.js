@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useHttp } from '../../hooks/http.hook'
 import 'react-toastify/dist/ReactToastify.css'
@@ -7,11 +7,13 @@ import { toast } from 'react-toastify'
 import Select from 'react-select'
 import makeAnimated from 'react-select/animated'
 import { CheckClentData } from './CheckClentData'
+import { AuthContext } from '../../context/AuthContext'
 const mongoose = require("mongoose")
 const animatedComponents = makeAnimated()
 
 toast.configure()
 export const OldOnlineClient = () => {
+    const auth = useContext(AuthContext)
     let s = []
     const { loading, request, error, clearError } = useHttp()
     const [turns, seTurns] = useState([])
@@ -87,7 +89,9 @@ export const OldOnlineClient = () => {
 
     const allClients = useCallback(async () => {
         try {
-            const fetch = await request('/api/clients/', 'GET', null)
+            const fetch = await request('/api/clients/', 'GET', null, {
+                Authorization: `Bearer ${auth.token}`
+            })
             setClients(fetch)
         } catch (e) { }
     }, [request])
@@ -102,7 +106,9 @@ export const OldOnlineClient = () => {
 
     const createHandler = async () => {
         try {
-            const data = await request('/api/clients/register', 'POST', { ...client })
+            const data = await request('/api/clients/register', 'POST', { ...client }, {
+                Authorization: `Bearer ${auth.token}`
+            })
             createAllSections(data._id)
             // history.push(`/reseption/reciept/${data._id}`)
         } catch (e) { }
@@ -125,7 +131,9 @@ export const OldOnlineClient = () => {
 
     const create = async ( section) => {
         try {
-            const data = await request(`/api/section/register/${client._id}`, 'POST', { ...section })
+            const data = await request(`/api/section/register/${client._id}`, 'POST', { ...section }, {
+                Authorization: `Bearer ${auth.token}`
+            })
             console.log(data);
         } catch (e) { }
     }
@@ -302,7 +310,7 @@ export const OldOnlineClient = () => {
                         return (
                             <>
                                 <div className="col-md-4 col-sm-6" >
-                                    <label className="text-muted mandatory"></label>
+                                    <label className=""></label>
                                     <input
                                         defaultValue={section.price}
                                         onChange={createSections}
@@ -313,19 +321,8 @@ export const OldOnlineClient = () => {
                                         placeholder={section.name + " summasi"}
                                     />
                                 </div>
-                                {/* <div className="col-5" >
-                                    <label className="text-muted mandatory">{ } navbati</label>
-                                    <input
-                                        // onChange={changeHandlar}
-                                        type="number"
-                                        className="form-control"
-                                        placeholder="section"
-                                        value={section.turn}
-                                        disabled
-                                    />
-                                </div> */}
                                 <div className="col-md-4 col-sm-6">
-                                    <label className="labels"> Kelish vaqti
+                                    <label className=""> Kelish vaqti
                                     </label>
                                     <input
                                         id={key}
@@ -336,7 +333,7 @@ export const OldOnlineClient = () => {
                                     />
                                 </div>
                                 <div className="col-md-4 col-sm-6">
-                                    <label className="labels"></label>
+                                    <label className=""></label>
                                     <input
                                         id={key}
                                         value={section.bronTime}
