@@ -1,7 +1,5 @@
 import React from 'react'
 import { CheckCashier } from './CheckCashier'
-import { NewClient } from './CreateCleint/NewClient'
-import { OldClient } from './CreateCleint/OldClient'
 
 export const CreateCheck = () => {
     return (

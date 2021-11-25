@@ -61,6 +61,7 @@ export const OldClient = () => {
         bronDay: new Date(),
         bronTime: " ",
         position: "offline",
+        checkup: "chaqirilmagan"
       });
     });
     setSections(s);

@@ -4,8 +4,9 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import { useAuth } from './hooks/auth.hook'
 import { AuthContext } from './context/AuthContext'
 import { Navbar } from './components/Navbar'
-
 export const Reseption = () => {
+    localStorage.removeItem('doctorData')
+    localStorage.removeItem('cashierData')
     const { login, token, logout, reseptionId } = useAuth()
     // const isAuthenticated = true
     const isAuthenticated = !!token

@@ -23,7 +23,7 @@ export const Reciept = () => {
 
     const getSections = useCallback(async () => {
         try {
-            const data = await request(`/api/section/reseption/${clientId}`, 'GET', null, {
+            const data = await request(`/api/section/${clientId}`, 'GET', null, {
                 Authorization: `Bearer ${auth.token}`
             })
             console.log(data);
@@ -34,7 +34,7 @@ export const Reciept = () => {
 
     const getClient = useCallback(async () => {
         try {
-            const data = await request(`/api/clients/reseption/${clientId}`, 'GET', null, {
+            const data = await request(`/api/clients/${clientId}`, 'GET', null, {
                 Authorization: `Bearer ${auth.token}`
             })
             setClient(data)
@@ -72,7 +72,7 @@ export const Reciept = () => {
                             <tbody>
                                 <tr>
                                     <td>
-                                        <ul className="list-unstyled mb0 text-start m-3">
+                                        <ul className="list-unstyled  text-start m-3">
                                             <li className="" style={{ fontSize: "10pt", fontFamily: "times" }}><strong style={{ fontSize: "10pt", fontFamily: "times" }} >"DS ONE PROVIDER" MCHJ</strong></li>
                                             <li style={{ fontSize: "10pt", fontFamily: "times" }}><strong style={{ fontSize: "10pt", fontFamily: "times" }}>Manzil:</strong> Navoiy shahar Zarapetyan ko'chasi</li>
                                             <li style={{ fontSize: "10pt", fontFamily: "times" }}><strong style={{ fontSize: "10pt", fontFamily: "times" }}>Bank:</strong> AKB "TURONBANK" Navoiy filiali</li>

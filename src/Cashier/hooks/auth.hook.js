@@ -9,9 +9,10 @@ export const useAuth = () => {
         setToken(jwtToken)
         setCashierId(id)
 
-        localStorage.setItem(storageName, JSON.stringify({ 
-            cashierId: id, 
-            token: jwtToken }))
+        localStorage.setItem(storageName, JSON.stringify({
+            cashierId: id,
+            token: jwtToken
+        }))
     }, [])
 
     const logout = useCallback(() => {
