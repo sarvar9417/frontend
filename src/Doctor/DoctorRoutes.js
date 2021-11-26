@@ -7,12 +7,12 @@ import { Home } from './DoctorPages/Home'
 export const DoctorRoutes = (isAuthenticated) => {
     if (isAuthenticated) {
         return (
-            <div style={{ marginTop: "90px" }} >
+            <div style={{ marginTop: "57px" }} >
                 <Switch >
                     <Route path="/doctor" exact >
                         <Home />
                     </Route>
-                    <Route path="/doctor/adoption/id" exact >
+                    <Route path="/doctor/adoption/:id" >
                         <Adoption />
                     </Route>
                 </Switch>

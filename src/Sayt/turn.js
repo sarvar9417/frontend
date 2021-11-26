@@ -11,13 +11,13 @@ export const Turn = () => {
         <div className="body">
             <div className="cc mb-5">
                 <div className="row text-white" style={{ backgroundColor: "#45D3D3"}}>
-                    <div className="col-md-4" >
+                    <div className="col-4" >
                         <h1 className="p-4">{new Date().toLocaleDateString()}</h1>
                     </div>
-                    <div className="col-md-4" style={{ textAlign: "center" }}>
+                    <div className="col-4" style={{ textAlign: "center" }}>
                         <h1 className="p-4">MedicalCenter</h1>
                     </div>
-                    <div  className="col-md-4" style={{ textAlign: "right" }}>
+                    <div  className="col-4" style={{ textAlign: "right" }}>
                         <h1 className="p-4">{ time }</h1>
                     </div>
                 </div>
